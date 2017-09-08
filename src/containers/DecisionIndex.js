@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import Button from '../components/Button'
-import { Grid, Image } from 'semantic-ui-react'
-
+import { Grid, Image, Card } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
 
   render(){
     return(
       <div>
-        <h1>INDEX</h1>
+        {/* take me to DecisionForm */}
+        <a href={'/'}>{this.props.label}</a>
+
         {this.props.decisions.map((decision, idx) =>
 
           <Grid divided='vertically'>
@@ -20,10 +20,36 @@ export default class DecisionIndex extends Component {
               </Grid.Column>
 
               <Grid.Column>
-                <h3 key={idx}>{decision.content}</h3>
+                <Card.Group>
+                  <Card key={idx}>
+                    <Card.Content>
+                      <a href={'/decisions/' + decision.id}><Card.Header>Decision TITLE</Card.Header></a>
+                      <Card.Description>{decision.content}</Card.Description>
+                    </Card.Content>
+                  </Card>
+
+                  {/* each outcome has own opinions */}
+                  {/* maybe outcome cards?? they contain opinion cards */}
+                  <Card >
+                    <Card.Content>
+                      <Card.Header>Outcomes</Card.Header>
+                      <Card.Description>content</Card.Description>
+                    </Card.Content>
+                  </Card>
+
+                  {/* each opinion belongs to an outcome */}
+                  <Card>
+                    <Card.Content>
+                      <Card.Header>Opinions</Card.Header>
+                      <Card.Description>content</Card.Description>
+                    </Card.Content>
+                  </Card>
+
+                </Card.Group>
               </Grid.Column>
             </Grid.Row>
           </Grid>
+
 
         )}
       </div>

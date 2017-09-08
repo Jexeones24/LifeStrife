@@ -11,6 +11,19 @@ export default class DecisionsAdapter {
         })
     }
 
+  static createDecision(content){
+    return fetch("http://localhost:3000/api/v1/decisions", {
+      method: 'post',
+      headers: headers(),
+      body: JSON.stringify({
+        content: content,
+        user_id: 1,
+      })
+    })
+    .then( resp => resp.json())
+  }
+
+
   static showDecision(decisionId){
     return fetch(`http://localhost:3000/api/v1/decisions/${decisionId}`, {
       headers: headers()
@@ -18,17 +31,7 @@ export default class DecisionsAdapter {
       .then(resp => resp.json())
   }
 
-  static createDecision(decision){
-    return fetch("http://localhost:3000/api/v1/decisions", {
-      method: 'post',
-      headers: headers(),
-      body: JSON.stringify({
-        content: decision.content,
-        user_id: 1,
-      })
-    })
-    .then( resp => resp.json())
-  }
+
 
 
   static deleteDecision(id){

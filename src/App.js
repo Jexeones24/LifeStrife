@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header'
-import Footer from './components/Footer'
 import Home from './containers/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import DecisionShow from './containers/DecisionShow'
 import DecisionIndex from './containers/DecisionIndex'
 import DecisionsAdapter from './adapters/DecisionsAdapter'
+import OutcomesAdapter from './adapters/OutcomesAdapter'
 
 
 
@@ -28,10 +28,22 @@ class App extends Component {
 
   componentDidMount(){
     DecisionsAdapter.getDecisions(this.state.currentUser)
-      .then( decisions => {
+      .then(decisions => {
         console.log(decisions)
-        this.setState({ decisions }, () => {console.log(this.state.decisions)})
+        this.setState({decisions})
     })
+  }
+
+  createDecision = (content) => {
+    DecisionsAdapter.createDecision(content)
+      .then(decision => this.setState({decision}, () => {console.log(this.state.decision)})
+    )
+  }
+
+  createOutcome = (content, decisionId) => {
+    OutcomesAdapter.createOutcome(content, decisionId)
+      .then(outcome => this.setState({outcomes:[...this.state.outcomes, outcome]}, () => {console.log(this.state.outcomes)})
+    )
   }
 
   renderSignup = () => {
@@ -47,15 +59,15 @@ class App extends Component {
   }
 
 
-  renderHome = () => {
+  renderHome = (params) => {
     return(
-      <Home decisions={this.state.decisions}/>
+      <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
     )
   }
 
-  renderDecisionShow = () => {
+  renderDecisionShow = (decision) => {
     return(
-      <DecisionShow />
+      <DecisionShow decisionId={decision.match.params.id} createOutcome={this.createOutcome} outcomes={this.state.outcomes}/>
     )
   }
 
@@ -71,7 +83,7 @@ class App extends Component {
                 <Route exact path="/signup" render={this.renderSignup}/>
                 <Route exact path="/decisions/:id" render={this.renderDecisionShow}/>
               </div>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
       </div>

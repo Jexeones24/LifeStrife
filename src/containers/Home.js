@@ -11,9 +11,9 @@ export default class Home extends Component {
       <div className="home-container">
         <Container text>
 
-          {!this.props.decisions ?
-            <DecisionIndex decisions={this.props.decisions}/> :
-            <DecisionForm />
+          {this.props.decisions ?
+            <DecisionIndex decisions={this.props.decisions} label={'Add'}/> :
+            <DecisionForm createDecision={this.props.createDecision} label={'All'} history={this.props.history}/>
           }
 
         </Container>
