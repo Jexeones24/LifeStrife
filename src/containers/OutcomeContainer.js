@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
-import ContentTile from '../components/ContentTile'
 
 
 export default class OutcomeContainer extends Component {
@@ -23,6 +22,12 @@ export default class OutcomeContainer extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.createOutcome(this.state.content, this.props.decisionId)
+    this.setState({content:''})
+  }
+
+  handleDelete = () => {
+    debugger
+    console.log("delete me")
   }
 
   render(){
@@ -43,12 +48,15 @@ export default class OutcomeContainer extends Component {
           </Form>
 
 
-            {this.props.outcomes ?
-            this.props.outcomes.map((outcome, idx) => <ContentTile key={idx} content={outcome.content}/>) :
-            <p>No outcomes submitted</p>}
-          <ContentTile />
-          <ContentTile />
-          <ContentTile />
+            {this.props.outcomes &&
+              this.props.outcomes.map((outcome, idx) =>
+                <div>
+                  <Segment as='h3' className="content-tile" key={outcome.id}>
+                    {outcome.content}
+                    <button onClick={this.handleEdit}>e</button>
+                    <button onClick={this.handleDelete}>-</button>
+                  </Segment>
+                </div>)}
 
         </Grid.Column>
 

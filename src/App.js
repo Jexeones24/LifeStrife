@@ -46,6 +46,30 @@ class App extends Component {
     )
   }
 
+  editDecision = (content, id) => {
+    debugger
+    DecisionsAdapter.editDecision(content, id)
+    .then(newDecision => {
+      let index = this.state.decisions.findIndex(decision => decision.id === id )
+      console.log(index)
+      this.setState({
+        decisions: [
+         ...this.state.decisions.slice(0,index), newDecision,
+         ...this.state.decisions.slice(index+1)
+       ]
+     }, () => {console.log(this.state.decisions)});
+    })
+  }
+
+
+  deleteDecision = (id) => {
+    DecisionsAdapter.deleteDecision(id)
+      .then(newDecisions => {
+        this.setState({decisions: newDecisions}, () => {console.log(this.state.decisions)})
+      }
+    )
+  }
+
   renderSignup = () => {
     return(
       null
@@ -67,7 +91,7 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} createOutcome={this.createOutcome} outcomes={this.state.outcomes}/>
+      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome} outcomes={this.state.outcomes} />
     )
   }
 

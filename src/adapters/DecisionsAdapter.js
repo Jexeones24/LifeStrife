@@ -32,6 +32,17 @@ export default class DecisionsAdapter {
   }
 
 
+    static editDecision(content, id){
+      debugger
+      return fetch(`http://localhost:3000/api/v1/decisions/${id}`, {
+        method: 'put',
+        headers: headers(),
+        body: JSON.stringify({
+          content: `${content}`
+        })
+      })
+      .then(resp => resp.json())
+    }
 
 
   static deleteDecision(id){
@@ -40,18 +51,6 @@ export default class DecisionsAdapter {
       headers: headers(),
       body: JSON.stringify({
         id: `${id}`
-      })
-    })
-    .then(resp => resp.json())
-  }
-
-
-  static editDecision(content, id){
-    return fetch(`http://localhost:3000/api/v1/decisions/${id}`, {
-      method: 'put',
-      headers: headers(),
-      body: JSON.stringify({
-        content: `${content}`
       })
     })
     .then(resp => resp.json())

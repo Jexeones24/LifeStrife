@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Comment, Form, Header, Container } from 'semantic-ui-react'
+import { Button, Comment, Form, Header } from 'semantic-ui-react'
 
 export default class DecisionForm extends Component {
   constructor(){
@@ -19,7 +19,7 @@ export default class DecisionForm extends Component {
     this.props.createDecision(this.state.content)
     this.setState({content: ''})
     //redirect to show page?
-    
+
   }
 
   render(){
