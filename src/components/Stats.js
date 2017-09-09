@@ -16,10 +16,9 @@ const Stats = () => {
           </Statistic>
 
           <Segment as='h3' className="stats">
-            I am an outcome
-          </Segment>
-
-          <Segment as='h3' className="stats">
+            <Statistic color='green' size='mini' value='4' label='pro' />
+            <Statistic color='red' size='mini' value='3' label='con' />
+            <br />
             I am an outcome
           </Segment>
 
