@@ -34,36 +34,30 @@ export default class OpinionContainer extends Component {
   //   console.log('handling delete')
   // }
 
+  // hide this if add opinion in outcome container is clicked
   render(){
-
     let outcomeOpinions = this.props.opinions.filter((opinion) => {
       return opinion.outcome_id === this.props.outcomeId
     })
 
-    console.log(outcomeOpinions)
-
     return(
       <div className="opinion-container">
-
-
-
-
         <Segment as='h3' className="outcome-opinions">
           <Statistic>
-            <Statistic.Value text>
-              Outcome id:{this.props.outcomeId}
-            </Statistic.Value>
-            <Statistic.Label>Opinions</Statistic.Label>
+            {this.props.outcome ?
+            <Statistic.Label>Outcome: {this.props.outcome[0].content}</Statistic.Label> : null }
           </Statistic>
 
           {this.props.opinions ?
-          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : <Tile />}
+          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : 'No opinions submitted'}
 
         </Segment>
       </div>
     )
   }
 }
+
+
 
 const Tile = ({color, content , idx}) => {
   let outline = null;

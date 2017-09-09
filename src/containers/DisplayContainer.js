@@ -15,24 +15,23 @@ export default class DisplayContainer extends Component {
 
     this.state = {
       outcomes:[],
+      chosenOutcome: null,
       opinions:[],
       content: '',
       value: '',
       isEditing: false,
       outcomeId: null,
       promptVisible: false,
-      opinionFormVisible: false,
+      opinionFormVisible: false
     }
   }
 
   componentDidMount(){
-    // need to gather everything here
     OutcomesAdapter.showOutcomes(this.props.decision.id)
       .then(outcomes => this.setState({outcomes})
     )
       OpinionsAdapter.getOpinions()
-        //filter here
-        .then(opinions => this.setState({opinions}, () => {console.log("opinions:", this.state.opinions)})
+        .then(opinions => this.setState({opinions})
       )
   }
 
@@ -45,7 +44,6 @@ export default class DisplayContainer extends Component {
   }
 
   handleSubmit = () => {
-    console.log("submitting edit")
     this.props.editDecision(this.state.content, this.props.decision.id)
     this.setState({isEditing:false})
   }
@@ -70,8 +68,6 @@ export default class DisplayContainer extends Component {
   }
 
   handleProForm = (e) => {
-    console.log("value", e.target.value)
-    // add form, hide prompt, store value
     this.setState({
       opinionFormVisible:true,
       promptVisible:false,
@@ -80,7 +76,6 @@ export default class DisplayContainer extends Component {
   }
 
   handleConForm = (e) => {
-    console.log("value", e.target.value)
     this.setState({
       opinionFormVisible:true,
       promptVisible:false,
@@ -89,12 +84,12 @@ export default class DisplayContainer extends Component {
   }
 
   outcomeOpinions = (outcomeId) => {
-    this.setState({outcomeId})
+    let chosenOutcome = this.state.outcomes.filter((o) => o.id === outcomeId)
+    this.setState({outcomeId, chosenOutcome}, () => {console.log(this.state.chosenOutcome)})
   }
 
 
   render(){
-
     let showOpinionForm = () => {
       return (
         this.state.opinionFormVisible ? <OpinionForm
@@ -150,7 +145,8 @@ export default class DisplayContainer extends Component {
 
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              <OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
+              {<OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId} outcome={this.state.chosenOutcome}/>}
+
 
             </Grid.Column>
           </Grid.Row>

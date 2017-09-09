@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
+import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
 
 
@@ -29,12 +29,10 @@ export default class OutcomeContainer extends Component {
   }
 
   handleDelete = (id) => {
-    console.log("delete me", id)
     this.props.deleteOutcome(id)
   }
 
   handleEdit = (content, e) => {
-    console.log("edit me", e)
     this.setState({
       editing:!this.state.editing,
       // outcomeId:id
@@ -48,18 +46,12 @@ export default class OutcomeContainer extends Component {
   }
 
   viewOpinions = (id) => {
-    console.log("view opinions of outcome", id)
-    // need to give this to display container
     this.props.outcomeOpinions(id)
   }
 
+  // if click add opinion, hide outcomes opinions
+
   render(){
-    console.log(this.props.opinions)
-    // loop through each outcome and then make a loop through opinions to find which ones are theirs
-    // need to round up all opinions / each outcome
-    // each outcome needs to also display a corresponding opinion container
-
-
     let outcomesToShow = () => {
 
       return (
@@ -83,7 +75,6 @@ export default class OutcomeContainer extends Component {
     }
 
     return(
-
         <Grid.Column>
           <Header as='h2'>
             <Icon name='balance' />
@@ -91,13 +82,13 @@ export default class OutcomeContainer extends Component {
               POSSIBLE OUTCOMES
             </Header.Content>
           </Header>
-
-          <Form onSubmit={this.handleSubmit}>
-            <TextArea autoHeight placeholder='Add Outcome...' rows={2}
-            onChange={this.handleChange} value={this.state.content} required/>
-            <button>+</button>
-          </Form>
-
+          <Segment as='h3' className="new-outcome-form">
+            <Form onSubmit={this.handleSubmit}>
+              <TextArea autoHeight placeholder='Add Outcome...' rows={2}
+              onChange={this.handleChange} value={this.state.content} required/>
+              <button>+</button>
+            </Form>
+          </Segment>
 
           {this.state.editing ? <OutcomeEditForm outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome}/> : outcomesToShow()}
 
