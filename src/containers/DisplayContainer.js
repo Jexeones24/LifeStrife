@@ -3,6 +3,8 @@ import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
 import ContentTile from '../components/ContentTile'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
+import OpinionForm from './OpinionForm'
+
 import OutcomesAdapter from '../adapters/OutcomesAdapter'
 import OpinionsAdapter from '../adapters/OpinionsAdapter'
 
@@ -16,9 +18,11 @@ export default class DisplayContainer extends Component {
       outcomes:[],
       opinions:[],
       content: '',
+      value: '',
       isEditing: false,
+      outcomeId: null,
+      promptVisible: false,
       opinionFormVisible: false,
-      outcomeId: null
     }
   }
 
@@ -58,11 +62,38 @@ export default class DisplayContainer extends Component {
     // have to redirect and destroy all outcomes/opinions associated
   }
 
-  showOpinionForm = (id) => {
+  // showOpinionForm = (id) => {
+  //   this.setState({
+  //     opinionFormVisible:true,
+  //     outcomeId: id})
+  // }
+
+  promptUser = (outcomeId) => {
     this.setState({
-      opinionFormVisible:!this.state.opinionFormVisible,
-      outcomeId: id})
+      promptVisible:!this.state.promptVisible,
+      outcomeId:outcomeId
+    })
   }
+
+  handleProForm = (e) => {
+    console.log("value", e.target.value)
+    // add form, hide prompt, store value
+    this.setState({
+      opinionFormVisible:true,
+      promptVisible:false,
+      value:e.target.value
+    })
+  }
+
+  handleConForm = (e) => {
+    console.log("value", e.target.value)
+    this.setState({
+      opinionFormVisible:true,
+      promptVisible:false,
+      value:e.target.value
+    })
+  }
+
 
   render(){
     return(
@@ -87,6 +118,7 @@ export default class DisplayContainer extends Component {
                         onChange={this.handleChange} value={this.state.content}
                         required/><button type="submit">+</button>
                     </Form> :
+
                     <Segment as='h3' className="content-tile" id={this.props.decision.id}>
                       {this.props.decision.content.toUpperCase()}
                     </Segment>}
@@ -96,7 +128,7 @@ export default class DisplayContainer extends Component {
             </Grid.Column>
 
 
-            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} showOpinionForm={this.showOpinionForm}/>
+            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} promptUser={this.promptUser}/>
 
 
             <Grid.Column>
@@ -107,8 +139,13 @@ export default class DisplayContainer extends Component {
                 </Header.Content>
               </Header>
 
-              {/* {this.state.opinions ? this.state.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value} outcome: {o.outcome_id}</p>) : <p>no</p>} */}
-              <OpinionContainer opinions={this.state.opinions}/>
+              {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : null}
+
+              {/* {this.state.opinionFormVisible
+                <OpinionForm />
+              } */}
+
+              {/* <OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm}/> */}
 
             </Grid.Column>
           </Grid.Row>
@@ -116,4 +153,14 @@ export default class DisplayContainer extends Component {
       </div>
     )
   }
+}
+
+const Prompt = ({handleProForm, handleConForm}) => {
+  return (
+    <div>
+      <h1>"Dafuq kind o' opinion you got 'bout 'dis?"</h1>
+      <button value="true" onClick={handleProForm}>PRO</button>
+      <button value="false" onClick={handleConForm}>CON</button>
+    </div>
+  )
 }

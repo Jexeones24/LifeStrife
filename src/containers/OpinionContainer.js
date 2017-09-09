@@ -8,7 +8,8 @@ export default class OpinionContainer extends Component {
     super();
 
     this.state = {
-      content: ''
+      content: '',
+      formVisible: false
     }
   }
 
@@ -27,6 +28,7 @@ export default class OpinionContainer extends Component {
     let value = this.state.value
     this.props.createOpinion(content, outcomeId, value)
     this.setState({content:''})
+    this.props.hideOpinionForm()
   }
 
   handleEdit = () => {
@@ -41,15 +43,19 @@ export default class OpinionContainer extends Component {
     return(
       <div className="opinion-container">
 
+        {this.state.formVisible &&
+
         <Form onSubmit={this.handleSubmit}>
           <TextArea autoHeight placeholder='Add Opinion...' rows={2}
           onChange={this.handleChange} value={this.state.content} required/>
           <button>+</button>
         </Form>
 
+        }
+
         {this.props.opinions ?
 
-        this.props.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value} outcome: {o.outcome_id}</p>) : <p>no</p>}
+        this.props.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value} outcome: {o.outcome_id}</p>) : null}
 
 
         {/* // this.props.opinions.map((opinion, idx) =>

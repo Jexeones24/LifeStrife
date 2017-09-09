@@ -7,8 +7,7 @@ export default class OutcomeContainer extends Component {
     super();
 
     this.state = {
-      content: '',
-      value: ''
+      content: ''
     }
   }
 
@@ -30,10 +29,8 @@ export default class OutcomeContainer extends Component {
     console.log("delete me")
   }
 
-  getOpinionFormInfo = (e) => {
-    debugger
-    let value = e.target.value
-    this.props.showOpinionForm(this.props.outcomes[0].id, value)
+  promptUser = (id) => {
+    this.props.promptUser(id)
   }
 
   render(){
@@ -58,11 +55,11 @@ export default class OutcomeContainer extends Component {
           this.props.outcomes.map((outcome, idx) =>
             <div key={idx}>
               <Segment as='h3' className="content-tile" key={idx} id={outcome.id}>
-                {outcome.content}
+                {outcome.id}: {outcome.content}
                 <button onClick={this.handleEdit}>e</button>
                 <button onClick={this.handleDelete}>-</button>
-                <button value='true' onClick={this.getOpinionFormInfo.bind(this)}>pro</button>
-                <button value='false' onClick={this.getOpinionFormInfo.bind(this)}>con</button>
+                <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
+
               </Segment>
             </div>)}
 
