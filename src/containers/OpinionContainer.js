@@ -40,11 +40,12 @@ export default class OpinionContainer extends Component {
   // }
 
   render(){
+    console.log("opinion container, outcomeId", this.props.outcomeId, "opinions", this.props.opinions)
     return(
       <div className="opinion-container">
 
         {/* how do i display all opinions that belong to an outcome as a group??? */}
-        
+
         {this.props.opinions ?
         this.props.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value.toString()} outcome: {o.outcome_id}</p>) : null}
 

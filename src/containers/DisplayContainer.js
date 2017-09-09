@@ -88,6 +88,11 @@ export default class DisplayContainer extends Component {
     })
   }
 
+  outcomeOpinions = (outcomeId) => {
+    //need to loop and pass to opinion something
+    this.setState({outcomeId})
+  }
+
 
   render(){
 
@@ -133,7 +138,7 @@ export default class DisplayContainer extends Component {
             </Grid.Column>
 
 
-            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser}/>
+            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions}/>
 
 
             <Grid.Column>
@@ -146,7 +151,7 @@ export default class DisplayContainer extends Component {
 
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              <OpinionContainer opinions={this.props.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm}/>
+              <OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
 
             </Grid.Column>
           </Grid.Row>

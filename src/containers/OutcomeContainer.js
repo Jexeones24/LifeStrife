@@ -47,14 +47,26 @@ export default class OutcomeContainer extends Component {
     this.props.promptUser(id)
   }
 
+  viewOpinions = (id) => {
+    console.log("view opinions of outcome", id)
+    // need to give this to display container
+    this.props.outcomeOpinions(id)
+  }
+
   render(){
+    console.log(this.props.opinions)
+    // loop through each outcome and then make a loop through opinions to find which ones are theirs
+    // need to round up all opinions / each outcome
+    // each outcome needs to also display a corresponding opinion container
+
 
     let outcomesToShow = () => {
+
       return (
         this.props.outcomes &&
         this.props.outcomes.map((outcome, idx) =>
           <div key={idx}>
-            <Segment as='h3' className="content-tile" key={idx} id={outcome.id} >
+            <Segment as='h3' className="content-tile" key={idx} id={outcome.id}>
 
               {outcome.id}: {outcome.content}
               <br />
@@ -63,6 +75,7 @@ export default class OutcomeContainer extends Component {
               <button value={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>e</button>
               <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
               <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
+              <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
 
             </Segment>
           </div>)
