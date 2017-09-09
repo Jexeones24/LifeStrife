@@ -45,31 +45,28 @@ export default class OpinionContainer extends Component {
     return(
       <div className="opinion-container">
 
-        {this.props.opinions ?
-        this.props.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value.toString()} outcome: {o.outcome_id}</p>) : null}
-
-
-          <Segment as='h3' className="outcome-opinions">
-            <Statistic>
-              <Statistic.Value text>
-                Outcome id:{this.props.outcomeId}
-              </Statistic.Value>
-              <Statistic.Label>Opinions</Statistic.Label>
-            </Statistic>
-
-
-            <Card fluid color='green' header='I am pros' />
-            <Card fluid color='red' header='I am cons' />
 
 
 
-          </Segment>
+        <Segment as='h3' className="outcome-opinions">
+          <Statistic>
+            <Statistic.Value text>
+              Outcome id:{this.props.outcomeId}
+            </Statistic.Value>
+            <Statistic.Label>Opinions</Statistic.Label>
+          </Statistic>
 
+          {this.props.opinions ?
+          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} />) : null}
 
-        Container per outcome
-          tiles for each opinion
-
+        </Segment>
       </div>
     )
   }
+}
+
+const Tile = ({color, content , idx}) => {
+  return (
+    <Card fluid color={color} header={content} key={idx}/>
+  )
 }
