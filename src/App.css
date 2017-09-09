@@ -33,7 +33,7 @@ body {
   text-align: center;
 }
 
-.decision-show-title:hover{
+.decision-show-title:hover, .content-tile:hover{
   color: grey;
 }
 

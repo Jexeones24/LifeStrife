@@ -32,10 +32,10 @@ export default class OutcomeContainer extends Component {
     this.props.deleteOutcome(id)
   }
 
-  handleEdit = (e) => {
+  handleEdit = (id) => {
     this.setState({
       editing:!this.state.editing,
-      outcomeId:e
+      outcomeId:id
     })
   }
 
@@ -47,8 +47,6 @@ export default class OutcomeContainer extends Component {
     this.props.outcomeOpinions(id)
   }
 
-  // if click add opinion, hide outcomes opinions
-
   render(){
 
     let outcomesToShow = () => {
@@ -57,7 +55,7 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
 
           <div key={idx}>
-            <Segment as='h3' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this)}>
+            <Segment as='h3' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
               {outcome.id}: {outcome.content}
               <br />
               <br />
@@ -78,6 +76,7 @@ export default class OutcomeContainer extends Component {
             </Header.Content>
           </Header>
 
+          {/* Adding new outcome */}
           <Segment as='h3' className="new-outcome-form">
             <Form onSubmit={this.handleSubmit}>
               <TextArea autoHeight placeholder='Add Outcome...' rows={2}
@@ -87,6 +86,7 @@ export default class OutcomeContainer extends Component {
             </Form>
           </Segment>
 
+          {/* editing outcome */}
           {this.state.editing ? <OutcomeEditForm outcomes={this.props.outcomes} outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome} handleDelete={this.handleDelete} promptUser={this.promptUser} viewOpinions={this.viewOpinions}/> : outcomesToShow()}
       </Grid.Column>
     )
