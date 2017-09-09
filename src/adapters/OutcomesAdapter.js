@@ -36,7 +36,8 @@ export default class OutcomesAdapter {
     .then(resp => resp.json())
   }
 
-  static editOutcome(content, id){
+  static editOutcome(id, content){
+    debugger
     return fetch(`http://localhost:3000/api/v1/outcomes/${id}`, {
       method: 'put',
       headers: headers(),

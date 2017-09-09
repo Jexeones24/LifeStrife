@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { Grid, Header, Icon, Form, TextArea, Segment } from 'semantic-ui-react'
-import ContentTile from '../components/ContentTile'
 
 
 export default class OpinionContainer extends Component {
@@ -53,8 +52,9 @@ export default class OpinionContainer extends Component {
 
         }
 
-        {this.props.opinions ?
 
+        {/* how do i display all opinions that belong to an outcome as a group??? */}
+        {this.props.opinions ?
         this.props.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value} outcome: {o.outcome_id}</p>) : null}
 
 

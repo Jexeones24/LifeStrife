@@ -10,8 +10,7 @@ export default class DecisionShow extends Component {
 
     this.state = {
       decision: null,
-      outcomes: [],
-      opinions: []
+      outcomes: []
     }
   }
 
@@ -26,14 +25,14 @@ export default class DecisionShow extends Component {
   }
 
 
-  // for each outcome, need the opinions
   render(){
     const {decisions, decisionId} = this.props
     return(
       <div>
         {this.state.decision ?
 
-        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome} createOpinion={this.props.createOpinion}/> : []}
+        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome}
+        editOutcome={this.props.editOutcome} deleteOutcome={this.props.deleteOutcome} createOpinion={this.props.createOpinion}/> : []}
       </div>
     )
   }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
-import ContentTile from '../components/ContentTile'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
 import OpinionForm from './OpinionForm'
-
+import Stats from '../components/Stats'
 import OutcomesAdapter from '../adapters/OutcomesAdapter'
 import OpinionsAdapter from '../adapters/OpinionsAdapter'
 
@@ -62,11 +61,6 @@ export default class DisplayContainer extends Component {
     // have to redirect and destroy all outcomes/opinions associated
   }
 
-  // showOpinionForm = (id) => {
-  //   this.setState({
-  //     opinionFormVisible:true,
-  //     outcomeId: id})
-  // }
 
   promptUser = (outcomeId) => {
     this.setState({
@@ -96,6 +90,13 @@ export default class DisplayContainer extends Component {
 
 
   render(){
+
+    let showOpinionForm = () => {
+      return (
+        this.state.opinionFormVisible ? <OpinionForm outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> : null
+      )
+    }
+
     return(
       <div className="decision-display-container">
 
@@ -125,10 +126,13 @@ export default class DisplayContainer extends Component {
                     <button onClick={this.handleDelete.bind(this)}>-</button>
 
                 </Segment>
+
+
+                <Stats />
             </Grid.Column>
 
 
-            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} promptUser={this.promptUser}/>
+            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser}/>
 
 
             <Grid.Column>
@@ -139,11 +143,9 @@ export default class DisplayContainer extends Component {
                 </Header.Content>
               </Header>
 
-              {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : null}
+              {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              {this.state.opinionFormVisible ? <OpinionForm /> : null}
-
-              {/* <OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm}/> */}
+              <OpinionContainer opinions={this.props.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm}/>
 
             </Grid.Column>
           </Grid.Row>

@@ -24,7 +24,6 @@ class App extends Component {
       outcomes: [],
       opinions: []
     }
-
   }
 
   componentDidMount(){
@@ -78,6 +77,28 @@ class App extends Component {
     )
   }
 
+  deleteOutcome = (id) => {
+    OutcomesAdapter.deleteOutcome(id)
+      .then(newOutcomes => {
+        this.setState({outcomes: newOutcomes}, () => {console.log(this.state.outcomes)})
+      })
+  }
+
+  editOutcome = (content, id) => {
+    console.log("handling edit in App")
+    debugger
+    OutcomesAdapter.editOutcome(content, id)
+      .then(newOutcome => {
+        let index = this.state.outcomes.findIndex(outcome => outcome.id === id )
+        this.setState({
+          outcomes: [
+           ...this.state.outcomes.slice(0,index), newOutcome,
+           ...this.state.outcomes.slice(index+1)
+         ]
+       }, () => {console.log(this.state.outcomes)});
+    })
+  }
+
   renderSignup = () => {
     return(
       null
@@ -99,7 +120,9 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome} outcomes={this.state.outcomes} createOpinion={this.createOpinion} opinions={this.state.opinions}/>
+      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome}
+      deleteOutcome={this.deleteOutcome}
+      editOutcome={this.editOutcome} outcomes={this.state.outcomes} createOpinion={this.createOpinion} opinions={this.state.opinions}/>
     )
   }
 

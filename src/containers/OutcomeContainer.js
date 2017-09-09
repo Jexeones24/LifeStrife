@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
+import OutcomeEditForm from './OutcomeEditForm'
 
 
 export default class OutcomeContainer extends Component {
@@ -7,7 +8,9 @@ export default class OutcomeContainer extends Component {
     super();
 
     this.state = {
-      content: ''
+      content: '',
+      editing: false,
+      outcomeId: null
     }
   }
 
@@ -25,8 +28,19 @@ export default class OutcomeContainer extends Component {
     this.setState({content:''})
   }
 
-  handleDelete = () => {
-    console.log("delete me")
+  handleDelete = (id) => {
+    console.log("delete me", id)
+    this.props.deleteOutcome(id)
+  }
+
+  handleEdit = (content, e) => {
+    console.log("edit me", e)
+    this.setState({
+      editing:!this.state.editing,
+      // outcomeId:id
+    })
+    // this.props.editOutcome(this.state.content, id)
+    // makes edit form appear
   }
 
   promptUser = (id) => {
@@ -34,6 +48,23 @@ export default class OutcomeContainer extends Component {
   }
 
   render(){
+
+    let outcomesToShow = () => {
+      return (
+        this.props.outcomes &&
+        this.props.outcomes.map((outcome, idx) =>
+          <div key={idx}>
+            <Segment as='h3' className="content-tile" key={idx} id={outcome.id} >
+              {outcome.id}: {outcome.content}
+              <button value={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>e</button>
+              <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
+              <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
+
+            </Segment>
+          </div>)
+      )
+    }
+
     return(
 
         <Grid.Column>
@@ -51,17 +82,7 @@ export default class OutcomeContainer extends Component {
           </Form>
 
 
-          {this.props.outcomes &&
-          this.props.outcomes.map((outcome, idx) =>
-            <div key={idx}>
-              <Segment as='h3' className="content-tile" key={idx} id={outcome.id}>
-                {outcome.id}: {outcome.content}
-                <button onClick={this.handleEdit}>e</button>
-                <button onClick={this.handleDelete}>-</button>
-                <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
-
-              </Segment>
-            </div>)}
+          {this.state.editing ? <OutcomeEditForm outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome}/> : outcomesToShow()}
 
       </Grid.Column>
     )

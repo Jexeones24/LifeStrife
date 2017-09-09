@@ -11,11 +11,24 @@ export default class OpinionForm extends Component {
     }
   }
 
+  handleChange = (e) => {
+    this.setState({content:e.target.value})
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let content = this.state.content
+    let outcomeId = this.props.outcomeId
+    let value = this.state.value
+    this.props.createOpinion(content, outcomeId, value)
+    this.setState({content:''})
+  }
+
   render(){
     return (
 
       <Form onSubmit={this.handleSubmit}>
-        <TextArea autoHeight placeholder='Add Opinion...' rows={2}
+        <TextArea autoHeight placeholder="Add opinion..." rows={2}
         onChange={this.handleChange} value={this.state.content} required/>
         <button>+</button>
       </Form>
