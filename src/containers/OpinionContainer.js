@@ -57,7 +57,7 @@ export default class OpinionContainer extends Component {
           </Statistic>
 
           {this.props.opinions ?
-          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} />) : null}
+          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : <Tile />}
 
         </Segment>
       </div>
@@ -66,7 +66,14 @@ export default class OpinionContainer extends Component {
 }
 
 const Tile = ({color, content , idx}) => {
+  let outline = null;
+  if(color === true) {
+    outline = 'green'
+  } else {
+    outline = 'red'
+  }
+
   return (
-    <Card fluid color={color} header={content} key={idx}/>
+    <Card fluid color={outline} header={content} key={idx}/>
   )
 }
