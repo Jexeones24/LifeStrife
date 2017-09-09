@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
+import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
 import OpinionForm from './OpinionForm'
@@ -37,6 +37,12 @@ export default class DisplayContainer extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     console.log(nextProps)
+    // need new outcomes and new opinions
+    // if(this.state.outcomes !== nextProps.outcomes){
+    //   let newOutcome = nextProps.outcomes[0]
+    //   console.log('say so')
+    //   this.setState({outcomes: [...this.state.outcomes, newOutcome]}, () => {console.log(this.state.outcomes)})
+    // }
   }
 
   handleChange = (e) => {
@@ -88,52 +94,50 @@ export default class DisplayContainer extends Component {
     this.setState({outcomeId, chosenOutcome}, () => {console.log(this.state.chosenOutcome)})
   }
 
+  // you can have an element that has an event listener attached when its clicked grab its value and dump into an input element and when user hits enter it shows the tag again but with new data
+
 
   render(){
     let showOpinionForm = () => {
       return (
         this.state.opinionFormVisible ? <OpinionForm
-          value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> : null
+        value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> : null
       )
     }
 
     return(
       <div className="decision-display-container">
-
         <Grid columns={3} divided>
           <Grid.Row>
             <Grid.Column>
-              <Header as='h2'>
-                <Icon/>
-                <Header.Content>
-                  CURRENT DECISION
-                </Header.Content>
-              </Header>
-
-              {/* decision display/show decision edit form */}
               <Segment className="decision-show-title" onClick={this.showEditForm}>
+                <Statistic>
+                  <Statistic.Value text>
+                    CURRENT DECISION
+                  </Statistic.Value>
+                  <Statistic.Label></Statistic.Label>
+                </Statistic>
 
                   {this.state.isEditing ?
                     <Form onSubmit={this.handleSubmit.bind(this)}>
-                      <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={2}
+                      <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
                         onChange={this.handleChange} value={this.state.content}
                         required/><button type="submit">+</button>
                     </Form> :
 
+
                     <Segment as='h3' className="content-tile" id={this.props.decision.id}>
                       {this.props.decision.content.toUpperCase()}
                     </Segment>}
+
+
+
                     <button onClick={this.handleDelete.bind(this)}>-</button>
-
                 </Segment>
-
-
                 <Stats />
             </Grid.Column>
 
-
             <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions}/>
-
 
             <Grid.Column>
               <Header as='h2'>
@@ -146,7 +150,6 @@ export default class DisplayContainer extends Component {
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               {<OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId} outcome={this.state.chosenOutcome}/>}
-
 
             </Grid.Column>
           </Grid.Row>
