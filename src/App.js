@@ -47,9 +47,9 @@ class App extends Component {
     )
   }
 
-  createOpinion = (content, outcomeId) => {
+  createOpinion = (content, outcomeId, value) => {
     console.log("creating opinion in app")
-    OpinionsAdapter.createOpinion(content, outcomeId)
+    OpinionsAdapter.createOpinion(content, outcomeId, value)
       .then(opinion => this.setState({opinions: [...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
     )
   }

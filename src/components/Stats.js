@@ -19,7 +19,7 @@ const Stats = () => {
             <Statistic color='green' size='mini' value='4' label='pro' />
             <Statistic color='red' size='mini' value='3' label='con' />
             <br />
-            I am an outcome
+            I am the best outcome
           </Segment>
 
         </Segment>

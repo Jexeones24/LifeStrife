@@ -55,7 +55,11 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
           <div key={idx}>
             <Segment as='h3' className="content-tile" key={idx} id={outcome.id} >
+
               {outcome.id}: {outcome.content}
+              <br />
+              <br />
+
               <button value={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>e</button>
               <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
               <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
