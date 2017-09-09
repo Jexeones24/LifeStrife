@@ -9,6 +9,7 @@ import DecisionShow from './containers/DecisionShow'
 import DecisionIndex from './containers/DecisionIndex'
 import DecisionsAdapter from './adapters/DecisionsAdapter'
 import OutcomesAdapter from './adapters/OutcomesAdapter'
+import OpinionsAdapter from './adapters/OpinionsAdapter'
 
 
 
@@ -36,13 +37,14 @@ class App extends Component {
 
   createDecision = (content) => {
     DecisionsAdapter.createDecision(content)
-      .then(decision => this.setState({decision}, () => {console.log(this.state.decision)})
+      .then(decision => this.setState({decision})
     )
   }
 
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
-      .then(outcome => this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {console.log(this.state.outcomes)})
+      .then(outcome => this.setState({outcomes: [...this.state.outcomes, outcome]}
+      )
     )
   }
 

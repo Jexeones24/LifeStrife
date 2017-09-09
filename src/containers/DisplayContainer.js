@@ -3,6 +3,9 @@ import { Grid, Header, Icon, Segment, Form, TextArea } from 'semantic-ui-react'
 import ContentTile from '../components/ContentTile'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
+import OutcomesAdapter from '../adapters/OutcomesAdapter'
+import OpinionsAdapter from '../adapters/OpinionsAdapter'
+
 
 
 export default class DisplayContainer extends Component {
@@ -10,11 +13,24 @@ export default class DisplayContainer extends Component {
     super();
 
     this.state = {
+      outcomes:[],
+      opinions:[],
       content: '',
       isEditing: false,
       opinionFormVisible: false,
       outcomeId: null
     }
+  }
+
+  componentDidMount(){
+    // need to gather everything here
+    OutcomesAdapter.showOutcomes(this.props.decision.id)
+      .then(outcomes => this.setState({outcomes})
+    )
+      OpinionsAdapter.getOpinions()
+        //filter here
+        .then(opinions => this.setState({opinions}, () => {console.log("opinions:", this.state.opinions)})
+      )
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -80,7 +96,7 @@ export default class DisplayContainer extends Component {
             </Grid.Column>
 
 
-            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} showOpinionForm={this.showOpinionForm}/>
+            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} showOpinionForm={this.showOpinionForm}/>
 
 
             <Grid.Column>
@@ -91,9 +107,9 @@ export default class DisplayContainer extends Component {
                 </Header.Content>
               </Header>
 
-              {this.state.opinionFormVisible ?
-                <OpinionContainer outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> :
-                null}
+              {/* {this.state.opinions ? this.state.opinions.map((o, idx) => <p key={idx}>content: {o.content} value: {o.value} outcome: {o.outcome_id}</p>) : <p>no</p>} */}
+              <OpinionContainer opinions={this.state.opinions}/>
+
             </Grid.Column>
           </Grid.Row>
         </Grid>

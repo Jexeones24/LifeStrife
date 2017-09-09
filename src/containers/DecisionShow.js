@@ -16,17 +16,9 @@ export default class DecisionShow extends Component {
   }
 
   componentDidMount(){
-    // grabs me one decision
     DecisionsAdapter.showDecision(this.props.decisionId)
-      .then( decision => {
-        this.setState({decision}, () =>
-          // grabs all decision's outcomes
-          OutcomesAdapter.showOutcomes(this.props.decisionId)
-            .then( outcomes => {
-              this.setState({outcomes}, () => {console.log('DecisionShow state:', this.state)})
-          })
-        )
-    })
+      .then( decision => this.setState({decision})
+    )
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -36,16 +28,12 @@ export default class DecisionShow extends Component {
 
   // for each outcome, need the opinions
   render(){
-
     const {decisions, decisionId} = this.props
-
     return(
       <div>
         {this.state.decision ?
 
-          <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome} createOpinion={this.props.createOpinion}/> :
-
-         []}
+        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome} createOpinion={this.props.createOpinion}/> : []}
       </div>
     )
   }
