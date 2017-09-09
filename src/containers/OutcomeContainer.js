@@ -30,6 +30,12 @@ export default class OutcomeContainer extends Component {
     console.log("delete me")
   }
 
+  getOutcomeId = (e) => {
+    debugger
+    console.log("hi", this.props.outcomes[0].id)
+    this.props.showOpinionForm(this.props.outcomes[0].id)
+  }
+
   render(){
     return(
 
@@ -50,11 +56,12 @@ export default class OutcomeContainer extends Component {
 
             {this.props.outcomes &&
               this.props.outcomes.map((outcome, idx) =>
-                <div>
-                  <Segment as='h3' className="content-tile" key={outcome.id}>
+                <div key={idx}>
+                  <Segment as='h3' className="content-tile" key={idx} id={outcome.id}>
                     {outcome.content}
                     <button onClick={this.handleEdit}>e</button>
                     <button onClick={this.handleDelete}>-</button>
+                    <button onClick={this.getOutcomeId.bind(this)}>add opinion</button>
                   </Segment>
                 </div>)}
 

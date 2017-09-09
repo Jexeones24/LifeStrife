@@ -43,7 +43,7 @@ export default class DecisionShow extends Component {
       <div>
         {this.state.decision ?
 
-          <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome}/> :
+          <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome} createOpinion={this.props.createOpinion}/> :
 
          []}
       </div>

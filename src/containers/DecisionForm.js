@@ -18,8 +18,7 @@ export default class DecisionForm extends Component {
     e.preventDefault();
     this.props.createDecision(this.state.content)
     this.setState({content: ''})
-    //redirect to show page?
-
+    window.location.href = '/'
   }
 
   render(){

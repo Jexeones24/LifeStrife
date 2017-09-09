@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header'
+import NavBar from './components/NavBar'
 import Home from './containers/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
@@ -42,12 +42,18 @@ class App extends Component {
 
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
-      .then(outcome => this.setState({outcomes:[...this.state.outcomes, outcome]}, () => {console.log(this.state.outcomes)})
+      .then(outcome => this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {console.log(this.state.outcomes)})
+    )
+  }
+
+  createOpinion = (content, outcomeId) => {
+    console.log("creating opinion in app")
+    OpinionsAdapter.createOpinion(content, outcomeId)
+      .then(opinion => this.setState({opinions: [...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
     )
   }
 
   editDecision = (content, id) => {
-    debugger
     DecisionsAdapter.editDecision(content, id)
     .then(newDecision => {
       let index = this.state.decisions.findIndex(decision => decision.id === id )
@@ -91,7 +97,7 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome} outcomes={this.state.outcomes} />
+      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome} outcomes={this.state.outcomes} createOpinion={this.createOpinion} opinions={this.state.opinions}/>
     )
   }
 
@@ -99,8 +105,8 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <div>
-            <Header/>
+          <div >
+            <NavBar/>
               <div id="content">
                 <Route exact path="/" render={this.renderHome}/>
                 <Route exact path="/login" render={this.renderLogin}/>

@@ -12,7 +12,8 @@ export default class DisplayContainer extends Component {
     this.state = {
       content: '',
       isEditing: false,
-      opinionFormVisible: false
+      opinionFormVisible: false,
+      outcomeId: null
     }
   }
 
@@ -41,8 +42,10 @@ export default class DisplayContainer extends Component {
     // have to redirect and destroy all outcomes/opinions associated
   }
 
-  showOpinionForm = () => {
-    this.setState({opinionFormVisible:!this.state.opinionFormVisible})
+  showOpinionForm = (id) => {
+    this.setState({
+      opinionFormVisible:!this.state.opinionFormVisible,
+      outcomeId: id})
   }
 
   render(){
@@ -72,12 +75,12 @@ export default class DisplayContainer extends Component {
                       {this.props.decision.content.toUpperCase()}
                     </Segment>}
                     <button onClick={this.handleDelete.bind(this)}>-</button>
-                    
+
                 </Segment>
             </Grid.Column>
 
 
-            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome}/>
+            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} showOpinionForm={this.showOpinionForm}/>
 
 
             <Grid.Column>
@@ -89,7 +92,7 @@ export default class DisplayContainer extends Component {
               </Header>
 
               {this.state.opinionFormVisible ?
-                <OpinionContainer /> :
+                <OpinionContainer outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> :
                 null}
             </Grid.Column>
           </Grid.Row>
