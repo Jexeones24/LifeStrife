@@ -141,9 +141,7 @@ export default class DisplayContainer extends Component {
 
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : null}
 
-              {/* {this.state.opinionFormVisible
-                <OpinionForm />
-              } */}
+              {this.state.opinionFormVisible ? <OpinionForm /> : null}
 
               {/* <OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm}/> */}
 
