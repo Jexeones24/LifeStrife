@@ -89,7 +89,6 @@ export default class DisplayContainer extends Component {
   }
 
   outcomeOpinions = (outcomeId) => {
-    //need to loop and pass to opinion something
     this.setState({outcomeId})
   }
 
