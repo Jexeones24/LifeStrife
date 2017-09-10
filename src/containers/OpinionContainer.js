@@ -36,10 +36,10 @@ export default class OpinionContainer extends Component {
 
   render(){
     console.log(this.props)
-
     let outcomeOpinions = this.props.opinions.filter((opinion) => {
       return opinion.outcome_id === this.props.outcomeId
     })
+
 
     return(
       <div className="opinion-container">

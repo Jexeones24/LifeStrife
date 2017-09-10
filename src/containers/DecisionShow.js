@@ -12,7 +12,8 @@ export default class DecisionShow extends Component {
 
     this.state = {
       decision: null,
-      outcomes: []
+      outcomes: [],
+      opinions: []
     }
   }
 
@@ -24,11 +25,18 @@ export default class DecisionShow extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     console.log(nextProps)
+    // let newOutcome = nextProps.outcomes[0]
+    // console.log(newOutcome)
+    // if(this.state.outcomes !== nextProps.outcomes){
+    //   return this.setState({outcomes: newOutcome}, () => {console.log(this.state.outcomes)})
+    // } else {
+    //   return null
+    // }
   }
 
 
   render(){
-    const {decisions, decisionId} = this.props
+    
     return(
       <div>
         {this.state.decision ?

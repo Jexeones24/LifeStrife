@@ -48,7 +48,6 @@ class App extends Component {
   }
 
   createOpinion = (content, outcomeId, value) => {
-    console.log("creating opinion in app")
     OpinionsAdapter.createOpinion(content, outcomeId, value)
       .then(opinion => this.setState({opinions: [...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
     )
@@ -86,7 +85,6 @@ class App extends Component {
 
   editOutcome = (content, id) => {
     console.log("handling edit in App")
-    debugger
     OutcomesAdapter.editOutcome(content, id)
       .then(newOutcome => {
         let index = this.state.outcomes.findIndex(outcome => outcome.id === id )

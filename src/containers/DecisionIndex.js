@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Image, Card, Statistic, Segment } from 'semantic-ui-react'
 
-
 export default class DecisionIndex extends Component {
   render(){
     console.log(this.props.decisions)

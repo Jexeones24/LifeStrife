@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
+import InlineEdit from 'react-edit-inline';
 
 
 export default class OutcomeContainer extends Component {
@@ -10,7 +11,8 @@ export default class OutcomeContainer extends Component {
     this.state = {
       content: '',
       editing: false,
-      outcomeId: null
+      outcomeId: null,
+      message: 'Hi'
     }
   }
 
@@ -28,7 +30,7 @@ export default class OutcomeContainer extends Component {
     this.setState({content:''})
   }
 
-  handleDelete = (id) => {
+  handleDelete = (id, e) => {
     this.props.deleteOutcome(id)
   }
 
@@ -39,12 +41,24 @@ export default class OutcomeContainer extends Component {
     })
   }
 
-  promptUser = (id) => {
+  promptUser = (id, e) => {
     this.props.promptUser(id)
   }
 
   viewOpinions = (id) => {
     this.props.outcomeOpinions(id)
+  }
+
+
+  dataChanged = (data) => {
+    // data = { description: "New validated text comes here" }
+    // Update your model from here
+    console.log(data)
+    this.setState({...data})
+  }
+
+  customValidateText = (text) => {
+    return (text.length > 0 && text.length < 64);
   }
 
   render(){
@@ -55,35 +69,61 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
 
           <div key={idx}>
-            <Segment as='h3' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
+            <Segment color='grey' as='h3' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
               {outcome.id}: {outcome.content}
               <br />
               <br />
-              <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
-              <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
-              <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
+              <Segment>
+                <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
+                <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
+                <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
+              </Segment>
             </Segment>
+            <br/>
           </div>)
         )
       }
 
     return(
-        <Grid.Column>
-          <Header as='h2'>
-            <Icon name='balance' />
-            <Header.Content>
-              POSSIBLE OUTCOMES
-            </Header.Content>
-          </Header>
+        <Grid.Column >
+          <Segment>
+            <Header as='h2'>
+              <Icon name='balance' />
+              <Header.Content>
+                POSSIBLE OUTCOMES
+              </Header.Content>
+            </Header>
 
-          {/* Adding new outcome */}
-          <Segment as='h3' className="new-outcome-form">
-            <Form onSubmit={this.handleSubmit}>
-              <TextArea autoHeight placeholder='Add Outcome...' rows={2}
-              onChange={this.handleChange} value={this.state.content} required/>
-              <br />
-              <button>+</button>
-            </Form>
+            <h2>{this.state.message}</h2>
+             <span>Edit me: </span>
+             <InlineEdit
+               validate={this.customValidateText}
+               activeClassName="editing"
+               text={this.state.message}
+               paramName="message"
+               change={this.dataChanged}
+               style={{
+                 backgroundColor: 'yellow',
+                 minWidth: 150,
+                 display: 'inline-block',
+                 margin: 0,
+                 padding: 0,
+                 fontSize: 15,
+                 outline: 0,
+                 border: 0
+               }}
+             />
+
+            {/* Adding new outcome */}
+            <Segment as='h3' className="new-outcome-form">
+              <Form onSubmit={this.handleSubmit}>
+                <TextArea autoHeight placeholder='Add Outcome...' rows={2}
+                onChange={this.handleChange} value={this.state.content} required/>
+                <br />
+                <button>+</button>
+              </Form>
+            </Segment>
+
           </Segment>
 
           {/* editing outcome */}

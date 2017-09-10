@@ -6,7 +6,7 @@ import OpinionForm from './OpinionForm'
 import Stats from '../components/Stats'
 import OutcomesAdapter from '../adapters/OutcomesAdapter'
 import OpinionsAdapter from '../adapters/OpinionsAdapter'
-
+import InlineEdit from 'react-edit-inline';
 
 
 export default class DisplayContainer extends Component {
@@ -19,6 +19,7 @@ export default class DisplayContainer extends Component {
       opinions:[],
       content: '',
       value: '',
+      message: '',
       isEditing: false,
       outcomeId: null,
       promptVisible: false,
@@ -37,11 +38,12 @@ export default class DisplayContainer extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     console.log(nextProps)
-    // need new outcomes and new opinions
+    // let newOutcome = nextProps.outcomes[0]
+    // console.log(newOutcome)
     // if(this.state.outcomes !== nextProps.outcomes){
-    //   let newOutcome = nextProps.outcomes[0]
-    //   console.log('say so')
-    //   this.setState({outcomes: [...this.state.outcomes, newOutcome]}, () => {console.log(this.state.outcomes)})
+    //   return this.setState({outcomes: [...this.state.outcomes, newOutcome]}, () => {console.log(this.state.outcomes)})
+    // } else {
+    //   return null
     // }
   }
 
@@ -94,8 +96,6 @@ export default class DisplayContainer extends Component {
     this.setState({outcomeId, chosenOutcome}, () => {console.log(this.state.chosenOutcome)})
   }
 
-  // you can have an element that has an event listener attached when its clicked grab its value and dump into an input element and when user hits enter it shows the tag again but with new data
-
 
   render(){
     let showOpinionForm = () => {
@@ -136,14 +136,8 @@ export default class DisplayContainer extends Component {
 
             <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions}/>
 
-            <Grid.Column>
-              <Header as='h2'>
-                <Icon name='plus'/>
-                <Header.Content>
-                  Pros & Cons
-                </Header.Content>
-              </Header>
-
+            {/* pro & con column */}
+            <Grid.Column >
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               {<OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId} outcome={this.state.chosenOutcome}/>}
@@ -159,7 +153,7 @@ export default class DisplayContainer extends Component {
 const Prompt = ({handleProForm, handleConForm}) => {
   return (
     <div>
-      <h1>"Dafuq kind o' opinion you got 'bout 'dis?"</h1>
+      <h1>Dafuq kind of opinion 'dis is?</h1>
       <button value="true" onClick={handleProForm}>PRO</button>
       <button value="false" onClick={handleConForm}>CON</button>
     </div>

@@ -10,8 +10,6 @@ export default class NavBar extends Component {
     console.log("clicked me")
   }
 
-
-
   render() {
     const { activeItem } = this.state
 
@@ -28,10 +26,9 @@ export default class NavBar extends Component {
           </Menu.Menu>
         </Menu>
         <div className="title">
-          <Header as='h2' icon textAlign='center'>
-            <Icon name='users' circular />
+          <Header as='h2' textAlign='center'>
             <Header.Content>
-              LIFE STRIFE
+              <h1>LIFE STRIFE</h1>
             </Header.Content>
           </Header>
           <Image centered size='large' src='/assets/images/wireframe/centered-paragraph.png' />

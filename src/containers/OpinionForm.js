@@ -17,7 +17,6 @@ export default class OpinionForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    debugger
     let content = this.state.content
     let outcomeId = this.props.outcomeId
     let value = this.props.value
