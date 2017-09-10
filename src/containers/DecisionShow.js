@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import DecisionsAdapter from '../adapters/DecisionsAdapter'
 import OutcomesAdapter from '../adapters/OutcomesAdapter'
 import DisplayContainer from './DisplayContainer'
+import { Menu, Icon } from 'semantic-ui-react'
+
 
 
 export default class DecisionShow extends Component {
@@ -30,7 +32,6 @@ export default class DecisionShow extends Component {
     return(
       <div>
         {this.state.decision ?
-
         <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome}
         editOutcome={this.props.editOutcome} deleteOutcome={this.props.deleteOutcome} createOpinion={this.props.createOpinion}/> : []}
       </div>

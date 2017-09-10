@@ -9,10 +9,10 @@ const Stats = () => {
         <Segment as='h3' className="stats">
           <Statistic>
             <Statistic.Value text>
-              Outcome
-              <br />Rankings
+              Best
+              <br /> Outcome
             </Statistic.Value>
-            <Statistic.Label>Stats</Statistic.Label>
+            <Statistic.Label>Highest Ranking</Statistic.Label>
           </Statistic>
 
           <Segment as='h3' className="stats">

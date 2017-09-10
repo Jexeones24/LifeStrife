@@ -1,57 +1,55 @@
 import React, { Component } from 'react'
-import { Grid, Image, Card } from 'semantic-ui-react'
+import { Grid, Image, Card, Statistic, Segment } from 'semantic-ui-react'
+
 
 export default class DecisionIndex extends Component {
-
   render(){
+    console.log(this.props.decisions)
+    let times = this.props.decisions.map((d) => d.created_at)
+    console.log(times)
+    let dates = times.map((t) => new Date(t))
+    console.log(dates)
+    // "2017-09-09T01:41:52.225Z"
+    // new Date("2017-09-09T01:41:52.225Z")
+    // => Fri Sep 08 2017 21:41:52 GMT-0400 (EDT)
     return(
       <div>
-        {/* take me to DecisionForm */}
-        <a href={'/'}>{this.props.label}</a>
+        <button onClick={this.props.renderDecisionForm}></button>
 
-        {this.props.decisions.map((decision, idx) =>
-
-          <Grid divided='vertically'>
-            <Grid.Row columns={2}>
-              <Grid.Column>
-
-                <Image src='https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?dpr=2&auto=format&fit=crop&w=1199&h=1799&q=80&cs=tinysrgb&crop=' />
-
-              </Grid.Column>
-
-              <Grid.Column>
+        {this.props.decisions ?
+          this.props.decisions.map((decision, idx) =>
+            <Segment float="right">
                 <Card.Group>
                   <Card key={idx}>
                     <Card.Content>
-                      <a href={'/decisions/' + decision.id}><Card.Header>Decision TITLE</Card.Header></a>
+                      <a href={'/decisions/' + decision.id}><Card.Header>DECISION TITLE</Card.Header></a>
+                      <Card.Description>Created on: {decision.created_at}</Card.Description>
                       <Card.Description>{decision.content}</Card.Description>
                     </Card.Content>
                   </Card>
 
-                  {/* each outcome has own opinions */}
-                  {/* maybe outcome cards?? they contain opinion cards */}
                   <Card >
                     <Card.Content>
-                      <Card.Header>Outcomes</Card.Header>
-                      <Card.Description>content</Card.Description>
+                      <Segment float="right">
+                        <h3>OUTCOMES</h3>
+                        <Statistic color='grey' size='mini' label='Total' value='6' />
+                      </Segment>
                     </Card.Content>
                   </Card>
 
-                  {/* each opinion belongs to an outcome */}
-                  <Card>
+                  <Card >
                     <Card.Content>
-                      <Card.Header>Opinions</Card.Header>
-                      <Card.Description>content</Card.Description>
+                      <Segment float="right">
+                        <h3>OPINIONS</h3>
+                        <Statistic color='green' size='mini' label='Pros' value='2' />
+                        <Statistic color='red' size='mini' label='Cons' value='4' />
+                      </Segment>
                     </Card.Content>
                   </Card>
-
                 </Card.Group>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-
-
-        )}
+              </Segment>) :
+            <h1>No Decisions Submitted</h1>
+          }
       </div>
     )
   }

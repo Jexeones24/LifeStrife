@@ -12,7 +12,7 @@ export default class OpinionDisplay extends Component {
                   required/><button type="submit">+</button>
               </Form>  */}
 
-              <Segment as='h3' className="content-tile">
+              <Segment as='h3' className="content-tile" >
                 HELLO
               </Segment>
               <button>-</button>

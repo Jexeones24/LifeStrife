@@ -34,7 +34,7 @@ export default class DecisionForm extends Component {
                 <Comment.Metadata>
                   <div>5 days ago</div>
                 </Comment.Metadata>
-                <Comment.Text as='h2'>
+                <Comment.Text>
 
                  <h3>Give a brief description of what's weighing on your mind...</h3>
 

@@ -125,12 +125,9 @@ export default class DisplayContainer extends Component {
                         required/><button type="submit">+</button>
                     </Form> :
 
-
                     <Segment as='h3' className="content-tile" id={this.props.decision.id}>
                       {this.props.decision.content.toUpperCase()}
                     </Segment>}
-
-
 
                     <button onClick={this.handleDelete.bind(this)}>-</button>
                 </Segment>
