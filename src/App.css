@@ -43,3 +43,7 @@ body {
 div .stuff {
   background-color: red;
 }
+
+.signup-container {
+  padding-top: 200px;
+}

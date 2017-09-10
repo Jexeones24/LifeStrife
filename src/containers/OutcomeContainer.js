@@ -96,6 +96,8 @@ export default class OutcomeContainer extends Component {
               </Header.Content>
             </Header>
 
+
+
             <h2>{this.state.message}</h2>
              <span>Edit me: </span>
              <InlineEdit
@@ -105,7 +107,7 @@ export default class OutcomeContainer extends Component {
                paramName="message"
                change={this.dataChanged}
                style={{
-                 backgroundColor: 'yellow',
+                 backgroundColor: 'grey',
                  minWidth: 150,
                  display: 'inline-block',
                  margin: 0,
@@ -115,6 +117,8 @@ export default class OutcomeContainer extends Component {
                  border: 0
                }}
              />
+
+
 
             {/* Adding new outcome */}
             <Segment as='h3' className="new-outcome-form">

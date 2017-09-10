@@ -18,8 +18,8 @@ class App extends Component {
     super();
 
     this.state = {
-      currentUser: {id: 1, username: "jexeones"},
-      loggedIn: true,
+      currentUser: {},
+      loggedIn: false,
       decisions: [],
       outcomes: [],
       opinions: []
@@ -99,19 +99,20 @@ class App extends Component {
 
   renderSignup = () => {
     return(
-      null
+      <Signup/>
     )
   }
 
   renderLogin = () => {
     return(
-      null
+      <Login />
     )
   }
 
 
   renderHome = (params) => {
     return(
+      
       <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
     )
   }
@@ -129,7 +130,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div >
-            <NavBar/>
+            {/* <NavBar/> */}
               <div id="content">
                 <Route exact path="/" render={this.renderHome}/>
                 <Route exact path="/login" render={this.renderLogin}/>

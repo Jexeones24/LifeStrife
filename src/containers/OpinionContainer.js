@@ -16,30 +16,11 @@ export default class OpinionContainer extends Component {
     console.log(nextProps)
   }
 
-  // handleChange = (e) => {
-  //   this.setState({content:e.target.value})
-  // }
-  //
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   let content = this.state.content
-  //   let outcomeId = this.props.outcomeId
-  //   let value = this.state.value
-  //
-  // handleEdit = () => {
-  //   console.log('handling edit')
-  // }
-  //
-  // handleDelete = () => {
-  //   console.log('handling delete')
-  // }
-
   render(){
-    console.log(this.props)
+
     let outcomeOpinions = this.props.opinions.filter((opinion) => {
       return opinion.outcome_id === this.props.outcomeId
     })
-
 
     return(
       <div className="opinion-container">
@@ -51,7 +32,6 @@ export default class OpinionContainer extends Component {
 
           {this.props.opinions ?
           outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : 'No opinions submitted'}
-
         </Segment>
       </div>
     )
