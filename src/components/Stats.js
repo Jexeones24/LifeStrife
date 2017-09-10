@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Segment, Statistic } from 'semantic-ui-react'
+import { Segment, Statistic, Button } from 'semantic-ui-react'
 
 
 const Stats = () => {
   return (
     <div>
       <Segment as='h3' className="stats">
-        <Segment as='h3' className="stats">
+        <Segment>
           <Statistic>
             <Statistic.Value text>
               Best
@@ -16,10 +16,10 @@ const Stats = () => {
           </Statistic>
 
           <Segment as='h3' className="stats">
-            <Statistic color='green' size='mini' value='4' label='pro' />
-            <Statistic color='red' size='mini' value='3' label='con' />
-            <br />
-            I am the best outcome
+            <Button size='big'>
+              <Statistic size='mini' label='I am the best outcome' value='46%' />
+            </Button>
+
           </Segment>
 
         </Segment>

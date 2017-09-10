@@ -36,7 +36,7 @@ export default class DecisionShow extends Component {
 
 
   render(){
-    
+
     return(
       <div>
         {this.state.decision ?

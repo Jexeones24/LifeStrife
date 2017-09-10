@@ -69,10 +69,12 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
 
           <div key={idx}>
-            <Segment color='grey' as='h3' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
-              {outcome.id}: {outcome.content}
-              <br />
-              <br />
+            <Segment color='grey' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
+              <h2>{outcome.id}: {outcome.content}</h2>
+              <Segment>
+                <Statistic color='green' size='mini' value='4' label='pro' />
+                <Statistic color='red' size='mini' value='3' label='con' />
+              </Segment>
               <Segment>
                 <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
                 <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
@@ -123,7 +125,6 @@ export default class OutcomeContainer extends Component {
                 <button>+</button>
               </Form>
             </Segment>
-
           </Segment>
 
           {/* editing outcome */}

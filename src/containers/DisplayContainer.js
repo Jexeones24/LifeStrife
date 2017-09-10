@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
+import { Grid, Header, Icon, Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
 import OpinionForm from './OpinionForm'
@@ -118,20 +118,26 @@ export default class DisplayContainer extends Component {
                   <Statistic.Label></Statistic.Label>
                 </Statistic>
 
-                  {this.state.isEditing ?
-                    <Form onSubmit={this.handleSubmit.bind(this)}>
-                      <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
-                        onChange={this.handleChange} value={this.state.content}
-                        required/><button type="submit">+</button>
-                    </Form> :
+                {this.state.isEditing ?
+                <Form onSubmit={this.handleSubmit.bind(this)}>
+                  <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
+                    onChange={this.handleChange} value={this.state.content}
+                    required/><button type="submit">+</button>
+                </Form> :
 
-                    <Segment as='h3' className="content-tile" id={this.props.decision.id}>
-                      {this.props.decision.content.toUpperCase()}
-                    </Segment>}
+                <Segment as='h3' className="content-tile" id={this.props.decision.id}>
+                  {this.props.decision.content.toUpperCase()}
+                </Segment>}
 
-                    <button onClick={this.handleDelete.bind(this)}>-</button>
-                </Segment>
-                <Stats />
+                <button onClick={this.handleDelete.bind(this)}>-</button>
+              </Segment>
+              <Stats />
+
+              <Segment>
+                <Button size='big'>Done</Button>
+                <Button size='big'>Something Else</Button>
+              </Segment>
+
             </Grid.Column>
 
             <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions}/>
@@ -141,7 +147,6 @@ export default class DisplayContainer extends Component {
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               {<OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId} outcome={this.state.chosenOutcome}/>}
-
             </Grid.Column>
           </Grid.Row>
         </Grid>
