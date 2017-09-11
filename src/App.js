@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar'
 import Home from './containers/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import DecisionShow from './containers/DecisionShow'
-import DecisionIndex from './containers/DecisionIndex'
 import DecisionsAdapter from './adapters/DecisionsAdapter'
 import OutcomesAdapter from './adapters/OutcomesAdapter'
 import OpinionsAdapter from './adapters/OpinionsAdapter'
-
 
 
 class App extends Component {
@@ -29,9 +27,8 @@ class App extends Component {
   componentDidMount(){
     DecisionsAdapter.getDecisions(this.state.currentUser)
       .then(decisions => {
-        console.log(decisions)
         this.setState({decisions})
-    })
+      })
   }
 
   createDecision = (content) => {
@@ -39,17 +36,6 @@ class App extends Component {
       .then(decision => this.setState({decision})
     )
   }
-
-  createOutcome = (content, decisionId) => {
-    OutcomesAdapter.createOutcome(content, decisionId)
-      .then(outcome => {
-        this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {
-          console.log("State after outcome created", this.state)
-        })
-      }
-    )
-  }
-
 
   editDecision = (content, id) => {
     DecisionsAdapter.editDecision(content, id)
@@ -74,12 +60,7 @@ class App extends Component {
     )
   }
 
-  deleteOutcome = (id) => {
-    OutcomesAdapter.deleteOutcome(id)
-      .then(newOutcomes => {
-        this.setState({outcomes: newOutcomes}, () => {console.log(this.state.outcomes)})
-      })
-  }
+
 
   editOutcome = (content, id) => {
     OutcomesAdapter.editOutcome(content, id)
@@ -115,8 +96,7 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
-      deleteOutcome={this.deleteOutcome}
+      <DecisionShow decisionId={decision.match.params.id} decision={this.state.decision} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
       editOutcome={this.editOutcome}/>
     )
   }

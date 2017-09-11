@@ -7,7 +7,7 @@ export default class DecisionsAdapter {
       .then( resp => resp.json())
         .then( decisions => {
           console.log("fetching decisions:", decisions)
-          return decisions.filter((d) => d.user_id === currentUser.id)
+          // return decisions.filter((d) => d.user_id === currentUser.id)
         })
     }
 

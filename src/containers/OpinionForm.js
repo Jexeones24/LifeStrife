@@ -29,7 +29,7 @@ export default class OpinionForm extends Component {
     return (
 
       <Form onSubmit={this.handleSubmit}>
-        <TextArea autoHeight placeholder="Add opinion..." rows={2}
+        <TextArea autoHeight placeholder={this.props.placeholder} rows={2}
         onChange={this.handleChange} value={this.state.content} required/>
         <button>+</button>
       </Form>

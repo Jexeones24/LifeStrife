@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Header, Icon, Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
+import { Grid, Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
 import OpinionForm from './OpinionForm'
@@ -16,28 +16,15 @@ export default class DisplayContainer extends Component {
     this.state = {
       outcomes:[],
       opinions:[],
-      chosenOutcome: null,
       content: '',
       value: '',
       message: '',
       isEditing: false,
       outcomeId: null,
       promptVisible: false,
-      opinionFormVisible: false
+      opinionFormVisible: false,
+      placeholder: ''
     }
-  }
-
-  componentDidMount(){
-    // OutcomesAdapter.showOutcomes(this.props.decision.id)
-    //   .then(outcomes => this.setState({outcomes})
-    // )
-      // OpinionsAdapter.getOpinions()
-      //   .then(opinions => this.setState({opinions})
-      // )
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
   }
 
   handleChange = (e) => {
@@ -65,7 +52,8 @@ export default class DisplayContainer extends Component {
     this.setState({
       opinionFormVisible:true,
       promptVisible:false,
-      value:e.target.value
+      value:e.target.value,
+      placeholder:'Add pro...'
     })
   }
 
@@ -73,7 +61,8 @@ export default class DisplayContainer extends Component {
     this.setState({
       opinionFormVisible:true,
       promptVisible:false,
-      value:e.target.value
+      value:e.target.value,
+      placeholder:'Add con...'
     })
   }
 
@@ -84,13 +73,25 @@ export default class DisplayContainer extends Component {
       promptVisible:!this.state.promptVisible
     })
     // callback from decision show to createOpinion
+    //this should also show opinions
 
   }
 
   getOpinions = (id) => {
     OutcomesAdapter.showOpinions(id)
-      .then(outcome => {this.setState({opinions: outcome.opinions}, () => {console.log(this.state.opinions)})
+      .then(outcome => {this.setState({
+        opinions: outcome.opinions}, () => {console.log(this.state.opinions)})
     })
+  }
+
+  createOpinion = (content, value, outcomeId) => {
+    console.log("creating opinion in decision show", content, value, outcomeId)
+    OpinionsAdapter.createOpinion(content, value, outcomeId)
+      .then(opinion => {
+        console.log("Created Opinion", opinion)
+        console.log("State in create opinon", this.state)
+        this.setState({opinions:[...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
+      })
   }
 
 
@@ -98,7 +99,7 @@ export default class DisplayContainer extends Component {
     let showOpinionForm = () => {
       return (
         this.state.opinionFormVisible ? <OpinionForm
-        value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.props.createOpinion}/> : null
+        value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.createOpinion} placeholder={this.state.placeholder}/> : null
       )
     }
 
@@ -107,7 +108,9 @@ export default class DisplayContainer extends Component {
         <Grid columns={3} divided>
           <Grid.Row>
             <Grid.Column>
-              <Segment className="decision-show-title" onClick={this.showEditForm}>
+              <Segment className="decision-show-title"
+                // click outside segment -> this.setState: !showEditForm
+                 onClick={this.showEditForm}>
                 <Statistic>
                   <Statistic.Value text>
                     CURRENT DECISION
@@ -141,9 +144,11 @@ export default class DisplayContainer extends Component {
 
             {/* pro & con column */}
             <Grid.Column >
+              <h1>PROS & CONS</h1>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              {<OpinionContainer opinions={this.state.opinions} createOpinion={this.props.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId} outcome={this.state.chosenOutcome}/>}
+              <OpinionContainer opinions={this.state.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
+
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -155,9 +160,8 @@ export default class DisplayContainer extends Component {
 const Prompt = ({handleProForm, handleConForm}) => {
   return (
     <div>
-      <h1>Dafuq kind of opinion 'dis is?</h1>
-      <button value="true" onClick={handleProForm}>PRO</button>
-      <button value="false" onClick={handleConForm}>CON</button>
+      <Button basic value="true" color='green' onClick={handleProForm}>PRO</Button>
+      <Button basic value="false" color='red' onClick={handleConForm}>CON</Button>
     </div>
   )
 }

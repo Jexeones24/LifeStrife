@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
 import InlineEdit from 'react-edit-inline';
-import OutcomesAdapter from '../adapters/OutcomesAdapter'
-import OpinionsAdapter from '../adapters/OpinionsAdapter'
 
 
 export default class OutcomeContainer extends Component {
@@ -17,10 +15,6 @@ export default class OutcomeContainer extends Component {
       opinions:[],
       message: 'Hi'
     }
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
   }
 
   handleChange = (e) => {
@@ -44,7 +38,7 @@ export default class OutcomeContainer extends Component {
     })
   }
 
-  handelAddOpinion = (id) => {
+  handleAddOpinion = (id) => {
     this.props.getOutcomeId(id)
     // send this to display container and then to opinion form
   }
@@ -55,8 +49,6 @@ export default class OutcomeContainer extends Component {
 
   }
 
-
-
   dataChanged = (data) => {
     // data = { description: "New validated text comes here" }
     // Update your model from here
@@ -66,6 +58,10 @@ export default class OutcomeContainer extends Component {
 
   customValidateText = (text) => {
     return (text.length > 0 && text.length < 64);
+  }
+
+  pro = () => {
+    console.log("in pro")
   }
 
   render(){
@@ -79,12 +75,12 @@ export default class OutcomeContainer extends Component {
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
               <h2>{outcome.id}: {outcome.content}</h2>
               <Segment>
-                <Statistic color='green' size='mini' value='4' label='pro' />
+                <Statistic color='green' size='mini' value='4' label='pro'/>
                 <Statistic color='red' size='mini' value='3' label='con' />
               </Segment>
               <Segment>
                 <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
-                <button onClick={this.handelAddOpinion.bind(this, outcome.id)}>add opinion</button>
+                <button onClick={this.handleAddOpinion.bind(this, outcome.id)}>add opinion</button>
                 <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
               </Segment>
             </Segment>

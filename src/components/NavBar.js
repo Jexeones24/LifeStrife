@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Icon, Image, Header } from 'semantic-ui-react'
-import { Link } from 'react-router'
+import { Input, Menu, Image, Header } from 'semantic-ui-react'
 
 export default class NavBar extends Component {
   state = { activeItem: 'home' }

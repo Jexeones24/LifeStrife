@@ -1,29 +1,28 @@
 import React, {Component} from 'react'
-import { Grid, Header, Icon, Form, TextArea, Segment, Statistic, Card } from 'semantic-ui-react'
-
+import { Segment, Statistic, Card } from 'semantic-ui-react'
+import OpinionForm from './OpinionForm'
 
 export default class OpinionContainer extends Component {
   constructor(){
     super();
-  }
 
-  componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
+    this.state = {
+      value: '',
+      outcomeId: null
+    }
   }
 
   render(){
     console.log("this.props.opinions", this.props.opinions)
     return(
       <div className="opinion-container">
-        <Segment as='h3' className="outcome-opinions">
           <Statistic>
             {this.props.outcome ?
             <Statistic.Label>Outcome: {this.props.outcome[0].content}</Statistic.Label> : null }
           </Statistic>
 
           {this.props.opinions && this.props.opinions.length > 0 ?
-          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : 'No opinions submitted'}
-        </Segment>
+          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : []}
       </div>
     )
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Segment, Statistic, Button } from 'semantic-ui-react'
 
 
