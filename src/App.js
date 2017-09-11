@@ -18,8 +18,8 @@ class App extends Component {
     super();
 
     this.state = {
-      currentUser: {},
-      loggedIn: false,
+      currentUser: {username: "jexeones", id: 1},
+      loggedIn: true,
       decisions: [],
       outcomes: [],
       opinions: []
@@ -42,8 +42,11 @@ class App extends Component {
 
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
-      .then(outcome => this.setState({outcomes: [...this.state.outcomes, outcome]}
-      )
+      .then(outcome => {
+        this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {
+          console.log("State after outcome created", this.state)
+        })
+      }
     )
   }
 
@@ -99,7 +102,7 @@ class App extends Component {
 
   renderSignup = () => {
     return(
-      <Signup/>
+      <Signup />
     )
   }
 
@@ -112,7 +115,7 @@ class App extends Component {
 
   renderHome = (params) => {
     return(
-      
+
       <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
     )
   }
@@ -130,7 +133,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div >
-            {/* <NavBar/> */}
+            <NavBar/>
               <div id="content">
                 <Route exact path="/" render={this.renderHome}/>
                 <Route exact path="/login" render={this.renderLogin}/>

@@ -13,15 +13,11 @@ export default class OpinionsAdapter {
     .then(resp => resp.json())
   }
 
-  static getOpinions() {
-    return fetch("http://localhost:3000/api/v1/opinions", {
+  static getOpinions(id) {
+    return fetch(`http://localhost:3000/api/v1/outcomes/${id}`, {
       headers: headers()
     })
       .then( resp => resp.json())
-        // .then( opinions => {
-        //   console.log("fetching opinions:", opinions)
-        //   return opinions.filter((opinion) => opinion.outcome_id === outcomeId)
-        // })
     }
 
 

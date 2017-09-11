@@ -19,8 +19,10 @@ export default class DecisionShow extends Component {
 
   componentDidMount(){
     DecisionsAdapter.showDecision(this.props.decisionId)
-      .then( decision => this.setState({decision})
-    )
+      .then( decision => {
+        console.log("Decisons from Decision Show", decision)
+        this.setState({decision: decision, outcomes: decision.outcomes})
+      })
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -35,12 +37,23 @@ export default class DecisionShow extends Component {
   }
 
 
-  render(){
+  createOutcome = (content, decisionId) => {
+    OutcomesAdapter.createOutcome(content, decisionId)
+      .then(outcome => {
+        this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {
+          console.log("State after outcome created", this.state)
+        })
+      }
+    )
+  }
 
+
+  render(){
+    console.log("Re rendering", this.state.outcomes)
     return(
       <div>
         {this.state.decision ?
-        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.props.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.props.createOutcome}
+        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.state.outcomes} opinions={this.props.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.createOutcome}
         editOutcome={this.props.editOutcome} deleteOutcome={this.props.deleteOutcome} createOpinion={this.props.createOpinion}/> : []}
       </div>
     )

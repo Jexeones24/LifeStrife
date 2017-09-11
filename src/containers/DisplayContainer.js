@@ -28,9 +28,9 @@ export default class DisplayContainer extends Component {
   }
 
   componentDidMount(){
-    OutcomesAdapter.showOutcomes(this.props.decision.id)
-      .then(outcomes => this.setState({outcomes})
-    )
+    // OutcomesAdapter.showOutcomes(this.props.decision.id)
+    //   .then(outcomes => this.setState({outcomes})
+    // )
       OpinionsAdapter.getOpinions()
         .then(opinions => this.setState({opinions})
       )
@@ -96,6 +96,17 @@ export default class DisplayContainer extends Component {
     this.setState({outcomeId, chosenOutcome}, () => {console.log(this.state.chosenOutcome)})
   }
 
+  viewOpinions = (id) => {
+    // some adapter should fetch opinions for id
+
+    //this.props.viewOpinionts(id)
+    console.log(id)
+    OpinionsAdapter.getOpinions(id)
+      .then(outcome => this.setState({opinions: outcome.opinions}, () => {
+        console.log("viewing opinions in outcome container", this.state.opinions)})
+    )
+  }
+
 
   render(){
     let showOpinionForm = () => {
@@ -140,7 +151,7 @@ export default class DisplayContainer extends Component {
 
             </Grid.Column>
 
-            <OutcomeContainer outcomes={this.state.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions}/>
+            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions} viewOpinions={this.viewOpinions}/>
 
             {/* pro & con column */}
             <Grid.Column >

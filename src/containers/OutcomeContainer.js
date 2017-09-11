@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
 import InlineEdit from 'react-edit-inline';
+import OpinionsAdapter from '../adapters/OpinionsAdapter'
 
 
 export default class OutcomeContainer extends Component {
@@ -12,6 +13,7 @@ export default class OutcomeContainer extends Component {
       content: '',
       editing: false,
       outcomeId: null,
+      opinions:[],
       message: 'Hi'
     }
   }
@@ -46,8 +48,12 @@ export default class OutcomeContainer extends Component {
   }
 
   viewOpinions = (id) => {
-    this.props.outcomeOpinions(id)
+    // some adapter should fetch opinions for id
+
+    this.props.viewOpinions(id)
+
   }
+
 
 
   dataChanged = (data) => {
@@ -69,7 +75,7 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
 
           <div key={idx}>
-            <Segment color='grey' className="content-tile" key={idx} id={outcome.id} onClick={this.handleEdit.bind(this, outcome.id)}>
+            <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
               <h2>{outcome.id}: {outcome.content}</h2>
               <Segment>
                 <Statistic color='green' size='mini' value='4' label='pro' />

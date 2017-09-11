@@ -17,10 +17,13 @@ export default class OpinionContainer extends Component {
   }
 
   render(){
+    //
+    // let outcomeOpinions = this.props.opinions.filter((opinion) => {
+    //   return opinion.outcome_id === this.props.outcomeId
+    // })
+    console.log("this props.opinion", this.props.opinions)
 
-    let outcomeOpinions = this.props.opinions.filter((opinion) => {
-      return opinion.outcome_id === this.props.outcomeId
-    })
+
 
     return(
       <div className="opinion-container">
@@ -30,8 +33,8 @@ export default class OpinionContainer extends Component {
             <Statistic.Label>Outcome: {this.props.outcome[0].content}</Statistic.Label> : null }
           </Statistic>
 
-          {this.props.opinions ?
-          outcomeOpinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : 'No opinions submitted'}
+          {this.props.opinions && this.props.opinions.length > 0 ?
+          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : 'No opinions submitted'}
         </Segment>
       </div>
     )

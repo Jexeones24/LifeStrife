@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Grid, Image, Card, Statistic, Segment } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
+
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+  }
+
   render(){
     console.log(this.props.decisions)
     let times = this.props.decisions.map((d) => d.created_at)
