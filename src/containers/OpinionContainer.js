@@ -5,11 +5,6 @@ import { Grid, Header, Icon, Form, TextArea, Segment, Statistic, Card } from 'se
 export default class OpinionContainer extends Component {
   constructor(){
     super();
-
-    this.state = {
-      content: '',
-      formVisible: false
-    }
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -17,14 +12,7 @@ export default class OpinionContainer extends Component {
   }
 
   render(){
-    //
-    // let outcomeOpinions = this.props.opinions.filter((opinion) => {
-    //   return opinion.outcome_id === this.props.outcomeId
-    // })
-    console.log("this props.opinion", this.props.opinions)
-
-
-
+    console.log("this.props.opinions", this.props.opinions)
     return(
       <div className="opinion-container">
         <Segment as='h3' className="outcome-opinions">

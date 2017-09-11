@@ -22,7 +22,7 @@ export default class OpinionForm extends Component {
     let value = this.props.value
     this.props.createOpinion(content, outcomeId, value)
     this.setState({content:''})
-    // increment pro, con counter in 
+    // increment pro, con counter in
   }
 
   render(){

@@ -15,8 +15,8 @@ export default class DisplayContainer extends Component {
 
     this.state = {
       outcomes:[],
-      chosenOutcome: null,
       opinions:[],
+      chosenOutcome: null,
       content: '',
       value: '',
       message: '',
@@ -31,20 +31,13 @@ export default class DisplayContainer extends Component {
     // OutcomesAdapter.showOutcomes(this.props.decision.id)
     //   .then(outcomes => this.setState({outcomes})
     // )
-      OpinionsAdapter.getOpinions()
-        .then(opinions => this.setState({opinions})
-      )
+      // OpinionsAdapter.getOpinions()
+      //   .then(opinions => this.setState({opinions})
+      // )
   }
 
   componentWillReceiveProps = (nextProps) => {
     console.log(nextProps)
-    // let newOutcome = nextProps.outcomes[0]
-    // console.log(newOutcome)
-    // if(this.state.outcomes !== nextProps.outcomes){
-    //   return this.setState({outcomes: [...this.state.outcomes, newOutcome]}, () => {console.log(this.state.outcomes)})
-    // } else {
-    //   return null
-    // }
   }
 
   handleChange = (e) => {
@@ -68,13 +61,6 @@ export default class DisplayContainer extends Component {
   }
 
 
-  promptUser = (outcomeId) => {
-    this.setState({
-      promptVisible:!this.state.promptVisible,
-      outcomeId:outcomeId
-    })
-  }
-
   handleProForm = (e) => {
     this.setState({
       opinionFormVisible:true,
@@ -91,20 +77,20 @@ export default class DisplayContainer extends Component {
     })
   }
 
-  outcomeOpinions = (outcomeId) => {
-    let chosenOutcome = this.state.outcomes.filter((o) => o.id === outcomeId)
-    this.setState({outcomeId, chosenOutcome}, () => {console.log(this.state.chosenOutcome)})
+  getOutcomeId = (id) => {
+    console.log("prompting user, outcome id:", id)
+    this.setState({
+      outcomeId:id,
+      promptVisible:!this.state.promptVisible
+    })
+    // callback from decision show to createOpinion
+
   }
 
-  viewOpinions = (id) => {
-    // some adapter should fetch opinions for id
-
-    //this.props.viewOpinionts(id)
-    console.log(id)
-    OpinionsAdapter.getOpinions(id)
-      .then(outcome => this.setState({opinions: outcome.opinions}, () => {
-        console.log("viewing opinions in outcome container", this.state.opinions)})
-    )
+  getOpinions = (id) => {
+    OutcomesAdapter.showOpinions(id)
+      .then(outcome => {this.setState({opinions: outcome.opinions}, () => {console.log(this.state.opinions)})
+    })
   }
 
 
@@ -151,7 +137,7 @@ export default class DisplayContainer extends Component {
 
             </Grid.Column>
 
-            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} promptUser={this.promptUser} outcomeOpinions={this.outcomeOpinions} viewOpinions={this.viewOpinions}/>
+            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}/>
 
             {/* pro & con column */}
             <Grid.Column >

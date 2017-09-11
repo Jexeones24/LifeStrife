@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
 import InlineEdit from 'react-edit-inline';
+import OutcomesAdapter from '../adapters/OutcomesAdapter'
 import OpinionsAdapter from '../adapters/OpinionsAdapter'
 
 
@@ -43,14 +44,14 @@ export default class OutcomeContainer extends Component {
     })
   }
 
-  promptUser = (id, e) => {
-    this.props.promptUser(id)
+  handelAddOpinion = (id) => {
+    this.props.getOutcomeId(id)
+    // send this to display container and then to opinion form
   }
 
   viewOpinions = (id) => {
     // some adapter should fetch opinions for id
-
-    this.props.viewOpinions(id)
+    this.props.getOpinions(id)
 
   }
 
@@ -83,7 +84,7 @@ export default class OutcomeContainer extends Component {
               </Segment>
               <Segment>
                 <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
-                <button onClick={this.promptUser.bind(this, outcome.id)}>add opinion</button>
+                <button onClick={this.handelAddOpinion.bind(this, outcome.id)}>add opinion</button>
                 <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
               </Segment>
             </Segment>
@@ -138,7 +139,7 @@ export default class OutcomeContainer extends Component {
           </Segment>
 
           {/* editing outcome */}
-          {this.state.editing ? <OutcomeEditForm outcomes={this.props.outcomes} outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome} handleDelete={this.handleDelete} promptUser={this.promptUser} viewOpinions={this.viewOpinions}/> : outcomesToShow()}
+          {this.state.editing ? <OutcomeEditForm outcomes={this.props.outcomes} outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome} handleDelete={this.handleDelete} viewOpinions={this.viewOpinions}/> : outcomesToShow()}
       </Grid.Column>
     )
   }

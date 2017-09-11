@@ -50,11 +50,6 @@ class App extends Component {
     )
   }
 
-  createOpinion = (content, outcomeId, value) => {
-    OpinionsAdapter.createOpinion(content, outcomeId, value)
-      .then(opinion => this.setState({opinions: [...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
-    )
-  }
 
   editDecision = (content, id) => {
     DecisionsAdapter.editDecision(content, id)
@@ -87,7 +82,6 @@ class App extends Component {
   }
 
   editOutcome = (content, id) => {
-    console.log("handling edit in App")
     OutcomesAdapter.editOutcome(content, id)
       .then(newOutcome => {
         let index = this.state.outcomes.findIndex(outcome => outcome.id === id )
@@ -115,16 +109,15 @@ class App extends Component {
 
   renderHome = (params) => {
     return(
-
       <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
     )
   }
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision} createOutcome={this.createOutcome}
+      <DecisionShow decisionId={decision.match.params.id} decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
       deleteOutcome={this.deleteOutcome}
-      editOutcome={this.editOutcome} outcomes={this.state.outcomes} createOpinion={this.createOpinion} opinions={this.state.opinions}/>
+      editOutcome={this.editOutcome}/>
     )
   }
 
