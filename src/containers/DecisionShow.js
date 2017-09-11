@@ -26,7 +26,7 @@ export default class DecisionShow extends Component {
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
       .then(outcome => {
-        this.setState({outcomes: [...this.state.decision.outcomes, outcome]})
+        this.setState({outcomes: [...this.state.outcomes, outcome]})
       }
     )
   }
