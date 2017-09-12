@@ -19,16 +19,17 @@ export default class DecisionIndex extends Component {
     return(
       <div>
         {this.props.decisions ?
-          this.props.decisions.map((decision, idx) =>
-          <Segment key={idx}>
+        this.props.decisions.map((decision, idx) =>
+        <Segment key={idx}>
           <Grid columns={2} divided>
             <Grid.Row stretched>
               <Grid.Column>
-                <Segment as="h2">
-                  {decision.content.toUpperCase()}
+
+                <Segment as="a" href={'/decisions/' + decision.id}>{decision.content.toUpperCase()}
+                  </Segment>
                   <br />
                   Created on: {decision.created_at}
-                </Segment>
+
 
               </Grid.Column>
               <Grid.Column>
