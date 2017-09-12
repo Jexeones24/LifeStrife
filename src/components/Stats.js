@@ -16,7 +16,7 @@ const Stats = () => {
           </Statistic>
 
           <Segment as='h3' className="stats">
-            <Button size='big'>
+            <Button size='medium'>
               <Statistic size='mini' label='I am the best outcome' value='46%' />
             </Button>
 

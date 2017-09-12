@@ -36,7 +36,7 @@ class App extends Component {
   createDecision(content){
     let id = this.state.currentUser.id
     DecisionsAdapter.createDecision(content, id)
-      .then(decision => this.setState({...this.state.decisions, decision},()=>this.props.history.push(`/decisions/${decision.id}`))
+      .then(decision => this.setState({...this.state.decisions, decision}, () => this.props.history.push(`/decisions/${decision.id}`))
     )
   }
 
@@ -61,7 +61,7 @@ class App extends Component {
   deleteDecision = (id) => {
     DecisionsAdapter.deleteDecision(id)
       .then(newDecisions => {
-        this.setState({decisions: newDecisions}, () => {console.log(this.state.decisions)})
+        this.setState({decisions: newDecisions}, () => this.props.history.push('/'))
       }
     )
   }
