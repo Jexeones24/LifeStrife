@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Input, Menu, Image, Header } from 'semantic-ui-react'
+import { Input, Menu, Image, Header, Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
+
 
 export default class NavBar extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
-    console.log("clicked me")
+    this.props.renderDecisionForm()
   }
 
   render() {
@@ -15,8 +17,18 @@ export default class NavBar extends Component {
     return (
       <div className="navbar">
         <Menu secondary>
-          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-          <Menu.Item name='new decision' active={activeItem === 'new decision'} onClick={this.handleItemClick} />
+
+
+          <Button size="small">
+            <Link to="/">Home</Link>
+          </Button>
+
+          <Button>
+            <Link to="/new">New Decision</Link>
+          </Button>
+
+          {/* <Menu.Item name='new decision' active={activeItem === 'new decision'} onClick={this.handleItemClick} /> */}
+
           <Menu.Menu position='right'>
             <Menu.Item>
               <Input icon='search' placeholder='Search...' />

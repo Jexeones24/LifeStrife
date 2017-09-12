@@ -22,10 +22,14 @@ export default class Home extends Component {
       <div className="home-container">
         <Container text>
 
-          {this.state.formVisible ?
-            <DecisionForm createDecision={this.props.createDecision} history={this.props.history}/> :
+          {/* {this.state.formVisible ?
+
+
+            <DecisionForm createDecision={this.props.createDecision} history={this.props.history}/> : */}
+
+
             <DecisionIndex decisions={this.props.decisions} renderDecisionForm={this.renderDecisionForm}/>
-          }
+          {/* } */}
 
         </Container>
       </div>

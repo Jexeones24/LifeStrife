@@ -123,6 +123,7 @@ export default class DisplayContainer extends Component {
     }
 
     return(
+
       <div className="decision-display-container">
         <Grid columns={3} divided>
           <Grid.Row>
@@ -161,13 +162,13 @@ export default class DisplayContainer extends Component {
                   {this.props.decision.content.toUpperCase()}
                 </Segment>}
 
-                <button onClick={this.handleDelete.bind(this)}>-</button>
+                <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this)}>Delete</Button>
               </Segment>
               <Stats />
 
               <Segment>
-                <Button size='big'>Done</Button>
-                <Button size='big'>Something Else</Button>
+                <Button basic size="mini" color='black'>CHOOSE OTHER</Button>
+                <Button inverted size="mini" color='red'>SAVE</Button>
               </Segment>
 
             </Grid.Column>
@@ -192,8 +193,8 @@ export default class DisplayContainer extends Component {
 const Prompt = ({handleProForm, handleConForm}) => {
   return (
     <div>
-      <Button basic value="true" color='green' onClick={handleProForm}>PRO</Button>
-      <Button basic value="false" color='red' onClick={handleConForm}>CON</Button>
+      <Button basic size="mini" value="true" color='green' onClick={handleProForm}>PRO</Button>
+      <Button basic size="mini" value="false" color='red' onClick={handleConForm}>CON</Button>
     </div>
   )
 }

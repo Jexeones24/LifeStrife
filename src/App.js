@@ -6,6 +6,7 @@ import Home from './containers/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import DecisionShow from './containers/DecisionShow'
+import DecisionForm from './containers/DecisionForm'
 import DecisionsAdapter from './adapters/DecisionsAdapter'
 import OutcomesAdapter from './adapters/OutcomesAdapter'
 import OpinionsAdapter from './adapters/OpinionsAdapter'
@@ -18,6 +19,7 @@ class App extends Component {
     this.state = {
       currentUser: {username: "smorelli", id: 3},
       loggedIn: true,
+      decision: {},
       decisions: [],
       outcomes: [],
       opinions: []
@@ -34,7 +36,7 @@ class App extends Component {
   createDecision = (content) => {
     let id = this.state.currentUser.id
     DecisionsAdapter.createDecision(content, id)
-      .then(decision => this.setState({decision})
+      .then(decision => this.setState({...this.state.decisions, decision})
     )
   }
 
@@ -42,13 +44,16 @@ class App extends Component {
     debugger
     DecisionsAdapter.editDecision(content, id)
     .then(newDecision => {
-      let index = this.state.decisions.findIndex(decision => decision.id === id )
+      let index = this.state.decisions.findIndex(decision => {
+        return decision.id === id
+      })
       this.setState({
-        decisions: [
-         ...this.state.decisions.slice(0,index), newDecision,
-         ...this.state.decisions.slice(index+1)
-       ]
-     }, () => {console.log(this.state.decisions)});
+      //   decisions: [
+      //    ...this.state.decisions.slice(0,index), newDecision,
+      //    ...this.state.decisions.slice(index+1)
+      //  ]
+      decision: newDecision
+     });
     })
   }
 
@@ -93,7 +98,6 @@ class App extends Component {
 
 
   createOpinion = (content, value, outcomeId) => {
-    console.log("creating opinion in decision show", content, value, outcomeId)
     OpinionsAdapter.createOpinion(content, value, outcomeId)
       .then(opinion => {
         console.log("Created Opinion", opinion)
@@ -123,12 +127,19 @@ class App extends Component {
   }
 
   renderDecisionShow = (decision) => {
+    console.log(decision)
     return(
       <DecisionShow decisionId={decision.match.params.id}
-        decisions={this.state.decisions} decision={this.state.decision} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
+        decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
         createOutcome={this.createOutcome}
         deleteOutcome={this.deleteOutcome}
         editOutcome={this.editOutcome}/>
+    )
+  }
+
+  renderDecisionForm = (params) => {
+    return (
+      <DecisionForm />
     )
   }
 
@@ -137,9 +148,10 @@ class App extends Component {
       <div className="App">
         <Router>
           <div >
-            <NavBar/>
+            <NavBar renderDecisionForm={this.renderDecisionForm}/>
               <div id="content">
                 <Route exact path="/" render={this.renderHome}/>
+                <Route exact path="/new" render={this.renderDecisionForm}/>
                 <Route exact path="/login" render={this.renderLogin}/>
                 <Route exact path="/signup" render={this.renderSignup}/>
                 <Route exact path="/decisions/:id" render={this.renderDecisionShow}/>

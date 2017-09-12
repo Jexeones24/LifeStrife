@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
+import { Grid, Header, Icon, Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
 
 export default class OutcomeContainer extends Component {
@@ -71,9 +71,9 @@ export default class OutcomeContainer extends Component {
                 <Statistic color='red' size='mini' value='3' label='con' />
               </Segment>
               <Segment>
-                <button onClick={this.handleDelete.bind(this, outcome.id)}>-</button>
-                <button onClick={this.handleAddOpinion.bind(this, outcome.id)}>add opinion</button>
-                <button onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</button>
+                <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this, outcome.id)}>Delete</Button>
+                <Button basic size="mini" color='black' onClick={this.handleAddOpinion.bind(this, outcome.id)}>+ opinion</Button>
+                <Button basic size="mini" color='black' onClick={this.viewOpinions.bind(this, outcome.id)}>view opinions</Button>
               </Segment>
             </Segment>
             <br/>
@@ -97,7 +97,7 @@ export default class OutcomeContainer extends Component {
                 <TextArea autoHeight placeholder='Add Outcome...' rows={2}
                 onChange={this.handleChange} value={this.state.content} required/>
                 <br />
-                <button>+</button>
+                <Button basic size="mini" color='black'>+</Button>
               </Form>
             </Segment>
           </Segment>
