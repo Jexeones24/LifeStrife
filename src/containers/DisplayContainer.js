@@ -102,9 +102,6 @@ export default class DisplayContainer extends Component {
   }
 
   dataChanged = (data) => {
-    // data = { description: "New validated text comes here" }
-    // Update your model from here
-    console.log(data)
     let content = data.message
     this.setState({
       isEditing:!this.state.isEditing,
@@ -139,11 +136,6 @@ export default class DisplayContainer extends Component {
                 </Statistic>
 
                 {this.state.isEditing ?
-                // <Form onSubmit={this.handleSubmit.bind(this)}>
-                //   <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
-                //     onChange={this.handleChange} value={this.state.content}
-                //     required/><button type="submit">+</button>
-                // </Form>
                 <div>
                   <Segment>
                     <InlineEdit

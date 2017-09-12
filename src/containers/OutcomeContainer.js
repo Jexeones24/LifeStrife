@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import { Grid, Header, Icon, Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
 import OutcomeEditForm from './OutcomeEditForm'
-import InlineEdit from 'react-edit-inline';
-
 
 export default class OutcomeContainer extends Component {
   constructor(){
@@ -13,7 +11,7 @@ export default class OutcomeContainer extends Component {
       editing: false,
       outcomeId: null,
       opinions:[],
-      message: 'Hi'
+      message: ''
     }
   }
 
@@ -49,15 +47,13 @@ export default class OutcomeContainer extends Component {
 
   }
 
-  dataChanged = (data) => {
-    // data = { description: "New validated text comes here" }
-    // Update your model from here
-    console.log(data)
-    this.setState({...data})
-  }
-
-  customValidateText = (text) => {
-    return (text.length > 0 && text.length < 64);
+  setMessage = (content) => {
+    console.log("setting message", content)
+    let message = content
+    this.setState({
+      editing:!this.state.editing,
+      message: content
+    }, () => {console.log(this.state)})
   }
 
   render(){
@@ -69,7 +65,7 @@ export default class OutcomeContainer extends Component {
 
           <div key={idx}>
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
-              <h2>{outcome.id}: {outcome.content}</h2>
+              <h2 onClick={this.setMessage.bind(this, outcome.content)}>{outcome.id}: {outcome.content}</h2>
               <Segment>
                 <Statistic color='green' size='mini' value='4' label='pro'/>
                 <Statistic color='red' size='mini' value='3' label='con' />
@@ -95,30 +91,6 @@ export default class OutcomeContainer extends Component {
               </Header.Content>
             </Header>
 
-
-
-            <h2>{this.state.message}</h2>
-             <span>Edit me: </span>
-             <InlineEdit
-               validate={this.customValidateText}
-               activeClassName="editing"
-               text={this.state.message}
-               paramName="message"
-               change={this.dataChanged}
-               style={{
-                 backgroundColor: 'grey',
-                 minWidth: 150,
-                 display: 'inline-block',
-                 margin: 0,
-                 padding: 0,
-                 fontSize: 15,
-                 outline: 0,
-                 border: 0
-               }}
-             />
-
-
-
             {/* Adding new outcome */}
             <Segment as='h3' className="new-outcome-form">
               <Form onSubmit={this.handleSubmit}>
@@ -131,7 +103,12 @@ export default class OutcomeContainer extends Component {
           </Segment>
 
           {/* editing outcome */}
-          {this.state.editing ? <OutcomeEditForm outcomes={this.props.outcomes} outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome} handleDelete={this.handleDelete} viewOpinions={this.viewOpinions}/> : outcomesToShow()}
+          {this.state.editing ?
+            <OutcomeEditForm outcomes={this.props.outcomes}
+              promptUser={this.props.promptUser}
+              outcomeId={this.state.outcomeId} editOutcome={this.props.editOutcome} handleDelete={this.handleDelete}
+              handleAddOpinion={this.handleAddOpinion} viewOpinions={this.viewOpinions}/>
+          : outcomesToShow()}
       </Grid.Column>
     )
   }
