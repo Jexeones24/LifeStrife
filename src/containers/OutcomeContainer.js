@@ -55,6 +55,7 @@ export default class OutcomeContainer extends Component {
   }
 
   render(){
+    console.log(this.props.outcomes)
 
     let outcomesToShow = () => {
       return (
@@ -63,10 +64,12 @@ export default class OutcomeContainer extends Component {
 
           <div key={idx}>
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
+
+
               <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.id}: {outcome.content}</h3>
               <Segment>
-                <Statistic color='green' size='mini' label='pro' value="3"/>
-                <Statistic color='red' size='mini' label='con' value="1"/>
+                <Statistic color='green' size='mini' label='pro' value={outcome.pros}/>
+                <Statistic color='red' size='mini' label='con' value={outcome.cons}/>
               </Segment>
               <Segment>
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this, outcome.id)}>Delete</Button>
