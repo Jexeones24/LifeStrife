@@ -26,10 +26,8 @@ export default class OutcomeEditForm extends Component {
 
   dataChanged = (data) => {
     let content = data.message
-    this.setState({
-      content:content
-    }, () => {console.log(this.props)}) //outcomeId is null
-    // this.props.editOutcome(content, this.props.outcomeId)
+    this.setState({content:content})
+    this.props.editOutcome(content, this.props.outcomeId)
   }
 
   customValidateText = (text) => {
@@ -38,7 +36,6 @@ export default class OutcomeEditForm extends Component {
 
 
   render (){
-
     return (
       <div>
         {this.props.outcomes.map((outcome, idx) =>
@@ -50,7 +47,7 @@ export default class OutcomeEditForm extends Component {
                activeClassName="editing"
                text={outcome.content.toUpperCase()}
                paramName="message"
-               change={this.dataChanged}
+               change={this.dataChanged.bind(this)}
                style={{
                  backgroundColor: 'white',
                  minWidth: 200,

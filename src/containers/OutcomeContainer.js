@@ -47,12 +47,13 @@ export default class OutcomeContainer extends Component {
 
   }
 
-  setMessage = (content) => {
-    console.log("setting message", content)
+  setMessage = (content, outcomeId) => {
+    console.log("setting message", content, "outcome id", outcomeId)
     let message = content
     this.setState({
       editing:!this.state.editing,
-      message: content
+      message: content,
+      outcomeId:outcomeId
     }, () => {console.log(this.state)})
   }
 
@@ -65,7 +66,7 @@ export default class OutcomeContainer extends Component {
 
           <div key={idx}>
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
-              <h2 onClick={this.setMessage.bind(this, outcome.content)}>{outcome.id}: {outcome.content}</h2>
+              <h2 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.id}: {outcome.content}</h2>
               <Segment>
                 <Statistic color='green' size='mini' value='4' label='pro'/>
                 <Statistic color='red' size='mini' value='3' label='con' />
