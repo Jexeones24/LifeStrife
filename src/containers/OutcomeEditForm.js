@@ -40,8 +40,8 @@ export default class OutcomeEditForm extends Component {
       <div>
         {this.props.outcomes.map((outcome, idx) =>
 
-          <div>
-            <Segment as="h3" className="content-tile" key={idx} id={outcome.id}>
+          <div key={idx} className="content-tile">
+            <Segment as="h3" id={outcome.id}>
               <InlineEdit
                validate={this.customValidateText}
                activeClassName="editing"

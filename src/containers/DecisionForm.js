@@ -51,7 +51,6 @@ export default class DecisionForm extends Component {
           </Form>
         </Comment.Group>
 
-        <button>{this.props.label}</button>
       </div>
     )
   }

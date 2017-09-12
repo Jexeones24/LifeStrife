@@ -7,13 +7,13 @@ export default class DecisionsAdapter {
       .then( resp => resp.json())
     }
 
-  static createDecision(content){
+  static createDecision(content, id){
     return fetch("http://localhost:3000/api/v1/decisions", {
       method: 'post',
       headers: headers(),
       body: JSON.stringify({
         content: content,
-        user_id: 1,
+        user_id: id,
       })
     })
     .then( resp => resp.json())

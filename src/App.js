@@ -16,7 +16,7 @@ class App extends Component {
     super();
 
     this.state = {
-      currentUser: {username: "jexeones", id: 1},
+      currentUser: {username: "smorelli", id: 3},
       loggedIn: true,
       decisions: [],
       outcomes: [],
@@ -31,10 +31,9 @@ class App extends Component {
       })
   }
 
-
-
   createDecision = (content) => {
-    DecisionsAdapter.createDecision(content)
+    let id = this.state.currentUser.id
+    DecisionsAdapter.createDecision(content, id)
       .then(decision => this.setState({decision})
     )
   }
@@ -125,10 +124,11 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decision={this.state.decision} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
-      createOutcome={this.createOutcome}
-      deleteOutcome={this.deleteOutcome}
-      editOutcome={this.editOutcome}/>
+      <DecisionShow decisionId={decision.match.params.id}
+        decisions={this.state.decisions} decision={this.state.decision} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
+        createOutcome={this.createOutcome}
+        deleteOutcome={this.deleteOutcome}
+        editOutcome={this.editOutcome}/>
     )
   }
 

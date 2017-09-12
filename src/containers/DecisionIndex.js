@@ -8,23 +8,23 @@ export default class DecisionIndex extends Component {
   }
 
   render(){
-    console.log(this.props.decisions)
-    let times = this.props.decisions.map((d) => d.created_at)
-    console.log(times)
-    let dates = times.map((t) => new Date(t))
-    console.log(dates)
+    // console.log(this.props.decisions)
+    // let times = this.props.decisions.map((d) => d.created_at)
+    // console.log(times)
+    // let dates = times.map((t) => new Date(t))
+    // console.log(dates)
     // "2017-09-09T01:41:52.225Z"
     // new Date("2017-09-09T01:41:52.225Z")
     // => Fri Sep 08 2017 21:41:52 GMT-0400 (EDT)
     return(
       <div>
-        <button onClick={this.props.renderDecisionForm}></button>
+        <button onClick={this.props.renderDecisionForm}>NEW DECISION</button>
 
         {this.props.decisions ?
           this.props.decisions.map((decision, idx) =>
-            <Segment float="right">
+            <Segment key={idx}>
                 <Card.Group>
-                  <Card key={idx}>
+                  <Card >
                     <Card.Content>
                       <a href={'/decisions/' + decision.id}><Card.Header>DECISION TITLE</Card.Header></a>
                       <Card.Description>Created on: {decision.created_at}</Card.Description>
@@ -34,7 +34,7 @@ export default class DecisionIndex extends Component {
 
                   <Card >
                     <Card.Content>
-                      <Segment float="right">
+                      <Segment >
                         <h3>OUTCOMES</h3>
                         <Statistic color='grey' size='mini' label='Total' value='6' />
                       </Segment>
@@ -43,7 +43,7 @@ export default class DecisionIndex extends Component {
 
                   <Card >
                     <Card.Content>
-                      <Segment float="right">
+                      <Segment >
                         <h3>OPINIONS</h3>
                         <Statistic color='green' size='mini' label='Pros' value='2' />
                         <Statistic color='red' size='mini' label='Cons' value='4' />

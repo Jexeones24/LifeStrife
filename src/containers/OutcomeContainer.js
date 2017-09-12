@@ -44,7 +44,6 @@ export default class OutcomeContainer extends Component {
   viewOpinions = (id) => {
     // some adapter should fetch opinions for id
     this.props.getOpinions(id)
-
   }
 
   setMessage = (content, outcomeId) => {
