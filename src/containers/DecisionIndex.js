@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Statistic, Segment } from 'semantic-ui-react'
+import { Card, Statistic, Segment, Grid } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
 
@@ -18,42 +18,34 @@ export default class DecisionIndex extends Component {
     // => Fri Sep 08 2017 21:41:52 GMT-0400 (EDT)
     return(
       <div>
-        <button onClick={this.props.renderDecisionForm}>NEW DECISION</button>
-
         {this.props.decisions ?
           this.props.decisions.map((decision, idx) =>
-            <Segment key={idx}>
-                <Card.Group>
-                  <Card >
-                    <Card.Content>
-                      <a href={'/decisions/' + decision.id}><Card.Header>DECISION TITLE</Card.Header></a>
-                      <Card.Description>Created on: {decision.created_at}</Card.Description>
-                      <Card.Description>{decision.content}</Card.Description>
-                    </Card.Content>
-                  </Card>
+          <Segment key={idx}>
+          <Grid columns={2} divided>
+            <Grid.Row stretched>
+              <Grid.Column>
+                <Segment as="h2">
+                  {decision.content.toUpperCase()}
+                  <br />
+                  Created on: {decision.created_at}
+                </Segment>
 
-                  <Card >
-                    <Card.Content>
-                      <Segment >
-                        <h3>OUTCOMES</h3>
-                        <Statistic color='grey' size='mini' label='Total' value='6' />
-                      </Segment>
-                    </Card.Content>
-                  </Card>
-
-                  <Card >
-                    <Card.Content>
-                      <Segment >
-                        <h3>OPINIONS</h3>
-                        <Statistic color='green' size='mini' label='Pros' value='2' />
-                        <Statistic color='red' size='mini' label='Cons' value='4' />
-                      </Segment>
-                    </Card.Content>
-                  </Card>
-                </Card.Group>
-              </Segment>) :
-            <h1>No Decisions Submitted</h1>
-          }
+              </Grid.Column>
+              <Grid.Column>
+                <Segment>
+                  <header>OUTCOMES</header>
+                  <Statistic color='grey' size='mini' label='Total' value='6' />
+                </Segment>
+                <Segment>
+                  <header>OPINIONS</header>
+                  <Statistic color='green' size='mini' label='Pros' value='2' />
+                  <Statistic color='red' size='mini' label='Cons' value='4' />
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>) :
+        <h1>No Decisions Submitted</h1>}
       </div>
     )
   }

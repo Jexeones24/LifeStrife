@@ -17,18 +17,8 @@ export default class NavBar extends Component {
     return (
       <div className="navbar">
         <Menu secondary>
-
-
-          <Button size="small">
-            <Link to="/">Home</Link>
-          </Button>
-
-          <Button>
-            <Link to="/new">New Decision</Link>
-          </Button>
-
-          {/* <Menu.Item name='new decision' active={activeItem === 'new decision'} onClick={this.handleItemClick} /> */}
-
+          <Button basic color='blue'><Link to="/">Home</Link></Button>
+          <Button basic color='blue'><Link to="/new">New Decision</Link></Button>
           <Menu.Menu position='right'>
             <Menu.Item>
               <Input icon='search' placeholder='Search...' />
