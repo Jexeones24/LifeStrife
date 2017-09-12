@@ -122,7 +122,6 @@ export default class DisplayContainer extends Component {
                   <Statistic.Value text>
                     CURRENT DECISION
                   </Statistic.Value>
-                  <Statistic.Label></Statistic.Label>
                 </Statistic>
 
                 {this.state.isEditing ?
@@ -148,7 +147,7 @@ export default class DisplayContainer extends Component {
                 :
 
                 <Segment as='h3' className="content-tile" onClick={this.setMessage} id={this.props.decision.id}>
-                  {this.props.decision.content.toUpperCase()}
+                  <h3>{this.props.decision.content.toUpperCase()}</h3>
                 </Segment>}
 
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this)}>Delete</Button>

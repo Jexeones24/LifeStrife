@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router'
 import './App.css';
 import NavBar from './components/NavBar'
 import Home from './containers/Home'
@@ -22,6 +23,7 @@ class App extends Component {
       outcomes: [],
       opinions: []
     }
+    this.createDecision = this.createDecision.bind(this)
   }
 
   componentDidMount(){
@@ -31,10 +33,10 @@ class App extends Component {
       })
   }
 
-  createDecision = (content) => {
+  createDecision(content){
     let id = this.state.currentUser.id
     DecisionsAdapter.createDecision(content, id)
-      .then(decision => this.setState({...this.state.decisions, decision})
+      .then(decision => this.setState({...this.state.decisions, decision},()=>this.props.history.push(`/decisions/${decision.id}`))
     )
   }
 
@@ -78,6 +80,7 @@ class App extends Component {
 
 
   renderHome = (params) => {
+    // debugger
     return(
       <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
     )
@@ -91,15 +94,16 @@ class App extends Component {
   }
 
   renderDecisionForm = (params) => {
+    debugger
+
     return (
-      <DecisionForm />
+      <DecisionForm createDecision={this.createDecision}/>
     )
   }
 
   render() {
     return (
       <div className="App">
-        <Router>
           <div >
             <NavBar renderDecisionForm={this.renderDecisionForm}/>
             <div id="content">
@@ -110,10 +114,9 @@ class App extends Component {
               <Route exact path="/decisions/:id" render={this.renderDecisionShow}/>
             </div>
           </div>
-        </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

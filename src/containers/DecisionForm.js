@@ -18,11 +18,9 @@ export default class DecisionForm extends Component {
     e.preventDefault();
     this.props.createDecision(this.state.content)
     this.setState({content: ''})
-    window.location.href = '/'
   }
 
   render(){
-      console.log(this.props)
       return (
         <div className="decision-form">
           <Grid columns='equal'>
