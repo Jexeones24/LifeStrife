@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Segment, Form, TextArea, Statistic } from 'semantic-ui-react'
+import { Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
 import InlineEdit from 'react-edit-inline';
 
 
@@ -63,9 +63,9 @@ export default class OutcomeEditForm extends Component {
                  <Statistic color='red' size='mini' value='3' label='con' />
                </Segment>
                <Segment>
-                 <button onClick={this.props.handleDelete.bind(this, outcome.id)}>-</button>
-                 <button onClick={this.props.handleAddOpinion.bind(this, outcome.id)}>add opinion</button>
-                 <button onClick={this.props.viewOpinions.bind(this, outcome.id)}>view opinions</button>
+                 <Button basic size="mini" color='black' onClick={this.props.handleDelete.bind(this, outcome.id)}>Delete</Button>
+                 <Button basic size="mini" color='black' onClick={this.props.handleAddOpinion.bind(this, outcome.id)}>+ opinion</Button>
+                 <Button basic size="mini" color='black' onClick={this.props.viewOpinions.bind(this, outcome.id)}>view opinions</Button>
                </Segment>
              </Segment>
            </div>)}

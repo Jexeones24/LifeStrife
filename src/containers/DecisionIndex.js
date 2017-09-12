@@ -24,13 +24,10 @@ export default class DecisionIndex extends Component {
           <Grid columns={2} divided>
             <Grid.Row stretched>
               <Grid.Column>
-
                 <Segment as="a" href={'/decisions/' + decision.id}>{decision.content.toUpperCase()}
-                  </Segment>
-                  <br />
-                  Created on: {decision.created_at}
-
-
+                </Segment>
+                <br />
+                Created on: {decision.created_at}
               </Grid.Column>
               <Grid.Column>
                 <Segment>
