@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import DecisionIndex from './DecisionIndex'
-import DecisionForm from './DecisionForm'
 import { Container } from 'semantic-ui-react'
 
 export default class Home extends Component {
@@ -13,7 +12,6 @@ export default class Home extends Component {
   }
 
   renderDecisionForm = () => {
-    console.log("here and this is janky")
     this.setState({formVisible:true})
   }
 
@@ -21,16 +19,7 @@ export default class Home extends Component {
     return(
       <div className="home-container">
         <Container text>
-
-          {/* {this.state.formVisible ?
-
-
-            <DecisionForm createDecision={this.props.createDecision} history={this.props.history}/> : */}
-
-
-            <DecisionIndex decisions={this.props.decisions} renderDecisionForm={this.renderDecisionForm}/>
-          {/* } */}
-
+          <DecisionIndex decisions={this.props.decisions} renderDecisionForm={this.renderDecisionForm}/>
         </Container>
       </div>
     )

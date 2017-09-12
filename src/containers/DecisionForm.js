@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Comment, Form, Header, Grid, Segment, Image } from 'semantic-ui-react'
+import { Button, Comment, Form, Header, Grid, Segment } from 'semantic-ui-react'
 
 export default class DecisionForm extends Component {
   constructor(){

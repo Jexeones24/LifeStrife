@@ -38,22 +38,20 @@ export default class OutcomeContainer extends Component {
 
   handleAddOpinion = (id) => {
     this.props.getOutcomeId(id)
-    // send this to display container and then to opinion form
+    // should increment counter here
   }
 
   viewOpinions = (id) => {
-    // some adapter should fetch opinions for id
     this.props.getOpinions(id)
   }
 
   setMessage = (content, outcomeId) => {
-    console.log("setting message", content, "outcome id", outcomeId)
     let message = content
     this.setState({
       editing:!this.state.editing,
       message: content,
       outcomeId:outcomeId
-    }, () => {console.log(this.state)})
+    })
   }
 
   render(){

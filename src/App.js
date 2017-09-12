@@ -8,8 +8,6 @@ import Login from './components/Login'
 import DecisionShow from './containers/DecisionShow'
 import DecisionForm from './containers/DecisionForm'
 import DecisionsAdapter from './adapters/DecisionsAdapter'
-import OutcomesAdapter from './adapters/OutcomesAdapter'
-import OpinionsAdapter from './adapters/OpinionsAdapter'
 
 
 class App extends Component {
@@ -29,7 +27,7 @@ class App extends Component {
   componentDidMount(){
     DecisionsAdapter.getDecisions(this.state.currentUser)
       .then(decisions => {
-        this.setState({decisions}, () => {console.log(this.state.decisions)})
+        this.setState({decisions})
       })
   }
 
@@ -86,7 +84,6 @@ class App extends Component {
   }
 
   renderDecisionShow = (decision) => {
-    console.log(decision)
     return(
       <DecisionShow decisionId={decision.match.params.id}
         decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}/>
@@ -105,14 +102,13 @@ class App extends Component {
         <Router>
           <div >
             <NavBar renderDecisionForm={this.renderDecisionForm}/>
-              <div id="content">
-                <Route exact path="/" render={this.renderHome}/>
-                <Route exact path="/new" render={this.renderDecisionForm}/>
-                <Route exact path="/login" render={this.renderLogin}/>
-                <Route exact path="/signup" render={this.renderSignup}/>
-                <Route exact path="/decisions/:id" render={this.renderDecisionShow}/>
-              </div>
-            {/* <Footer /> */}
+            <div id="content">
+              <Route exact path="/" render={this.renderHome}/>
+              <Route exact path="/new" render={this.renderDecisionForm}/>
+              <Route exact path="/login" render={this.renderLogin}/>
+              <Route exact path="/signup" render={this.renderSignup}/>
+              <Route exact path="/decisions/:id" render={this.renderDecisionShow}/>
+            </div>
           </div>
         </Router>
       </div>

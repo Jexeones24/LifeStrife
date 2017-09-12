@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Statistic, Segment, Grid } from 'semantic-ui-react'
+import { Statistic, Segment, Grid } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
+import { Segment, Statistic, Button } from 'semantic-ui-react'
 import InlineEdit from 'react-edit-inline';
 
 

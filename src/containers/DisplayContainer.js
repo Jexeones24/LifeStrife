@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Segment, Form, TextArea, Statistic, Button } from 'semantic-ui-react'
+import { Grid, Segment, Statistic, Button } from 'semantic-ui-react'
 import OutcomeContainer from './OutcomeContainer'
 import OpinionContainer from './OpinionContainer'
 import OpinionForm from './OpinionForm'
@@ -36,10 +36,6 @@ export default class DisplayContainer extends Component {
     this.setState({isEditing:false})
   }
 
-  // showEditForm = () => {
-  //   this.setState({isEditing:true})
-  // }
-
   handleDelete = (e) => {
     e.preventDefault();
     this.props.deleteDecision(this.props.decision.id)
@@ -67,30 +63,23 @@ export default class DisplayContainer extends Component {
   }
 
   getOutcomeId = (id) => {
-    console.log("prompting user, outcome id:", id)
     this.setState({
       outcomeId:id,
       promptVisible:!this.state.promptVisible
     })
-    // callback from decision show to createOpinion
-    //this should also show opinions
-
   }
 
   getOpinions = (id) => {
     OutcomesAdapter.showOpinions(id)
       .then(outcome => {this.setState({
-        opinions: outcome.opinions}, () => {console.log(this.state.opinions)})
+        opinions: outcome.opinions})
     })
   }
 
   createOpinion = (content, value, outcomeId) => {
-    console.log("creating opinion in decision show", content, value, outcomeId)
     OpinionsAdapter.createOpinion(content, value, outcomeId)
       .then(opinion => {
-        console.log("Created Opinion", opinion)
-        console.log("State in create opinon", this.state)
-        this.setState({opinions:[...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
+        this.setState({opinions:[...this.state.opinions, opinion]})
       })
   }
 

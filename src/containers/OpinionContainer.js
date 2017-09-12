@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import { Segment, Statistic, Card } from 'semantic-ui-react'
-import OpinionForm from './OpinionForm'
+import { Statistic, Card } from 'semantic-ui-react'
 
 export default class OpinionContainer extends Component {
   constructor(){
