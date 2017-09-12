@@ -19,44 +19,26 @@ export default class DecisionShow extends Component {
     DecisionsAdapter.showDecision(this.props.decisionId)
       .then( decision => {
         console.log("Decisions from Decision Show", decision)
-        this.setState({decision: decision, outcomes: decision.outcomes})
+        this.setState({decision: decision, outcomes: decision.outcomes}, () => {
+          console.log("state in decision show", this.state)
+        })
       })
   }
 
-  createOutcome = (content, decisionId) => {
-    OutcomesAdapter.createOutcome(content, decisionId)
-      .then(outcome => {
-        this.setState({outcomes: [...this.state.outcomes, outcome]})
-      }
-    )
+  componentWillReceiveProps = (nextProps) => {
+    console.log("decision show next props", nextProps)
   }
 
-  deleteOutcome = (id) => {
-    OutcomesAdapter.deleteOutcome(id)
-      .then(newOutcomes => {
-        let outcomes = this.state.outcomes.filter((o) => o.id !== id)
-        this.setState({outcomes}, () => {console.log(this.state.outcomes)})
-      })
-  }
-
-  // createOpinion = (content, value, outcomeId) => {
-  //   console.log("creating opinion in decision show", content, value, outcomeId)
-  //   OpinionsAdapter.createOpinion(content, value, outcomeId)
-  //     .then(opinion => {
-  //       console.log("Created Opinion", opinion)
-  //       console.log("State in create opinon", this.state)
-  //       this.setState({opinions:[...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
-  //     })
-  // }
 
   render(){
     console.log("Re rendering", this.state)
     return(
       <div>
         {this.state.decision ?
-        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions} outcomes={this.state.outcomes} opinions={this.state.opinions} editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} createOutcome={this.createOutcome}
+        <DisplayContainer decision={this.state.decision} decisions={this.props.decisions}
+        editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.outcomes} opinions={this.state.opinions}  createOutcome={this.props.createOutcome}
         editOutcome={this.props.editOutcome}
-        getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion}/> : []}
+        getOutcomeId={this.getOutcomeId} deleteOutcome={this.props.deleteOutcome} createOpinion={this.props.createOpinion}/> : []}
       </div>
     )
   }

@@ -5,10 +5,6 @@ export default class DecisionsAdapter {
       headers: headers()
     })
       .then( resp => resp.json())
-        .then( decisions => {
-          console.log("fetching decisions:", decisions)
-          // return decisions.filter((d) => d.user_id === currentUser.id)
-        })
     }
 
   static createDecision(content){

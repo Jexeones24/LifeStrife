@@ -36,9 +36,9 @@ export default class DisplayContainer extends Component {
     this.setState({isEditing:false})
   }
 
-  showEditForm = () => {
-    this.setState({isEditing:true})
-  }
+  // showEditForm = () => {
+  //   this.setState({isEditing:true})
+  // }
 
   handleDelete = (e) => {
     e.preventDefault();
@@ -94,6 +94,28 @@ export default class DisplayContainer extends Component {
       })
   }
 
+  setMessage = () => {
+    this.setState({
+      message: this.props.decision.content.toUpperCase(),
+      isEditing:!this.state.isEditing
+    })
+  }
+
+  dataChanged = (data) => {
+    // data = { description: "New validated text comes here" }
+    // Update your model from here
+    console.log(data)
+    let content = data.message
+    this.setState({
+      isEditing:!this.state.isEditing,
+      content:content
+    })
+      this.props.editDecision(content, this.props.decision.id)
+  }
+
+  customValidateText = (text) => {
+    return (text.length > 0 && text.length < 150);
+  }
 
   render(){
     let showOpinionForm = () => {
@@ -108,9 +130,7 @@ export default class DisplayContainer extends Component {
         <Grid columns={3} divided>
           <Grid.Row>
             <Grid.Column>
-              <Segment className="decision-show-title"
-                // click outside segment -> this.setState: !showEditForm
-                 onClick={this.showEditForm}>
+              <Segment className="decision-show-title" >
                 <Statistic>
                   <Statistic.Value text>
                     CURRENT DECISION
@@ -119,13 +139,33 @@ export default class DisplayContainer extends Component {
                 </Statistic>
 
                 {this.state.isEditing ?
-                <Form onSubmit={this.handleSubmit.bind(this)}>
-                  <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
-                    onChange={this.handleChange} value={this.state.content}
-                    required/><button type="submit">+</button>
-                </Form> :
+                // <Form onSubmit={this.handleSubmit.bind(this)}>
+                //   <TextArea autoHeight placeholder={this.props.decision.content.toUpperCase()} rows={3}
+                //     onChange={this.handleChange} value={this.state.content}
+                //     required/><button type="submit">+</button>
+                // </Form>
+                <div>
+                  <Segment>
+                    <InlineEdit
+                     validate={this.customValidateText}
+                     activeClassName="editing"
+                     text={this.state.message.toUpperCase()}
+                     paramName="message"
+                     change={this.dataChanged}
+                     style={{
+                       backgroundColor: 'white',
+                       minWidth: 200,
+                       display: 'inline-block',
+                       margin: 0,
+                       padding: 0,
+                       fontSize: 15,
+                       outline: 0,
+                       border: 10
+                     }}/></Segment>
+                 </div>
+                :
 
-                <Segment as='h3' className="content-tile" id={this.props.decision.id}>
+                <Segment as='h3' className="content-tile" onClick={this.setMessage} id={this.props.decision.id}>
                   {this.props.decision.content.toUpperCase()}
                 </Segment>}
 

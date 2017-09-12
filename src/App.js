@@ -27,9 +27,11 @@ class App extends Component {
   componentDidMount(){
     DecisionsAdapter.getDecisions(this.state.currentUser)
       .then(decisions => {
-        this.setState({decisions})
+        this.setState({decisions}, () => {console.log(this.state.decisions)})
       })
   }
+
+
 
   createDecision = (content) => {
     DecisionsAdapter.createDecision(content)
@@ -38,10 +40,10 @@ class App extends Component {
   }
 
   editDecision = (content, id) => {
+    debugger
     DecisionsAdapter.editDecision(content, id)
     .then(newDecision => {
       let index = this.state.decisions.findIndex(decision => decision.id === id )
-      console.log(index)
       this.setState({
         decisions: [
          ...this.state.decisions.slice(0,index), newDecision,
@@ -60,6 +62,21 @@ class App extends Component {
     )
   }
 
+  createOutcome = (content, decisionId) => {
+    OutcomesAdapter.createOutcome(content, decisionId)
+      .then(outcome => {
+        this.setState({outcomes: [...this.state.outcomes, outcome]})
+      }
+    )
+  }
+
+  deleteOutcome = (id) => {
+    OutcomesAdapter.deleteOutcome(id)
+      .then(newOutcomes => {
+        let outcomes = this.state.outcomes.filter((o) => o.id !== id)
+        this.setState({outcomes}, () => {console.log(this.state.outcomes)})
+      })
+  }
 
 
   editOutcome = (content, id) => {
@@ -74,6 +91,18 @@ class App extends Component {
        }, () => {console.log(this.state.outcomes)});
     })
   }
+
+
+  createOpinion = (content, value, outcomeId) => {
+    console.log("creating opinion in decision show", content, value, outcomeId)
+    OpinionsAdapter.createOpinion(content, value, outcomeId)
+      .then(opinion => {
+        console.log("Created Opinion", opinion)
+        console.log("State in create opinon", this.state)
+        this.setState({opinions:[...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
+      })
+  }
+
 
   renderSignup = () => {
     return(
@@ -97,6 +126,8 @@ class App extends Component {
   renderDecisionShow = (decision) => {
     return(
       <DecisionShow decisionId={decision.match.params.id} decision={this.state.decision} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
+      createOutcome={this.createOutcome}
+      deleteOutcome={this.deleteOutcome}
       editOutcome={this.editOutcome}/>
     )
   }

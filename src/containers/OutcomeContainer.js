@@ -60,10 +60,6 @@ export default class OutcomeContainer extends Component {
     return (text.length > 0 && text.length < 64);
   }
 
-  pro = () => {
-    console.log("in pro")
-  }
-
   render(){
 
     let outcomesToShow = () => {
