@@ -120,7 +120,7 @@ export default class DisplayContainer extends Component {
               <Segment className="decision-show-title" >
                 <Statistic>
                   <Statistic.Value text>
-                    CURRENT DECISION
+                    DECISION
                   </Statistic.Value>
                 </Statistic>
 
@@ -161,7 +161,8 @@ export default class DisplayContainer extends Component {
 
             </Grid.Column>
 
-            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}/>
+            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}
+            />
 
             {/* pro & con column */}
             <Grid.Column >

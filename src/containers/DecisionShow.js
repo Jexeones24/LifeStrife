@@ -18,21 +18,19 @@ export default class DecisionShow extends Component {
   componentDidMount(){
     DecisionsAdapter.showDecision(this.props.decisionId)
       .then( decision => {
-        console.log("Decisions from Decision Show", decision)
-        this.setState({decision: decision, outcomes: decision.outcomes}, () => {
-          console.log("state in decision show", this.state)
-        })
+        // console.log("Decisions from Decision Show", decision.outcomes[0].values)
+        this.setState({decision: decision, outcomes: decision.outcomes})
       })
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    console.log("decision show next props", nextProps)
-  }
+  // componentWillReceiveProps = (nextProps) => {
+  //   console.log("decision show next props", nextProps, "outcomes", this.state.decision.outcomes)
+  // }
 
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
       .then(outcome => {
-        this.setState({outcomes: [...this.state.outcomes, outcome]})
+        this.setState({outcomes: [...this.state.outcomes, outcome]}, () => {this.props.newOutcome(outcome)})
       }
     )
   }
@@ -63,15 +61,12 @@ export default class DecisionShow extends Component {
   createOpinion = (content, value, outcomeId) => {
     OpinionsAdapter.createOpinion(content, value, outcomeId)
       .then(opinion => {
-        console.log("Created Opinion", opinion)
-        console.log("State in create opinon", this.state)
         this.setState({opinions:[...this.state.opinions, opinion]}, () => {console.log(this.state.opinions)})
       })
   }
 
 
   render(){
-    console.log("Re rendering", this.state)
     return(
       <div>
         {this.state.decision ?
@@ -79,7 +74,8 @@ export default class DecisionShow extends Component {
         decision={this.state.decision} decisions={this.props.decisions}
         editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.outcomes} opinions={this.state.opinions}  createOutcome={this.createOutcome}
         editOutcome={this.editOutcome}
-        getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion}/> : []}
+        getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion}
+        /> : []}
       </div>
     )
   }

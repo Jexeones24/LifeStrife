@@ -34,7 +34,7 @@ export default class DecisionIndex extends Component {
               <Grid.Column>
                 <Segment>
                   <header>OUTCOMES</header>
-                  <Statistic color='grey' size='mini' label='Total' value='6' />
+                  <Statistic color='grey' size='mini' label='Total' value={decision.outcomes.length} />
                 </Segment>
                 <Segment>
                   <header>OPINIONS</header>

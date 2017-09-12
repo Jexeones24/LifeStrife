@@ -66,6 +66,12 @@ class App extends Component {
     )
   }
 
+  newOutcome = (outcome) => {
+    console.log(outcome)
+    this.setState({outcomes: [...this.state.outcomes, outcome]})
+  }
+
+
   renderSignup = () => {
     return(
       <Signup />
@@ -82,14 +88,17 @@ class App extends Component {
   renderHome = (params) => {
     // debugger
     return(
-      <Home history={params.history} decisions={this.state.decisions} createDecision={this.createDecision}/>
+      <Home history={params.history} decisions={this.state.decisions}
+      outcomes={this.state.outcomes} createDecision={this.createDecision}/>
     )
   }
 
   renderDecisionShow = (decision) => {
     return(
       <DecisionShow decisionId={decision.match.params.id}
-        decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}/>
+        decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
+        newOutcome={this.newOutcome}
+      />
     )
   }
 

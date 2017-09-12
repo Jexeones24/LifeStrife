@@ -65,8 +65,8 @@ export default class OutcomeContainer extends Component {
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
               <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.id}: {outcome.content}</h3>
               <Segment>
-                <Statistic color='green' size='mini' value='4' label='pro'/>
-                <Statistic color='red' size='mini' value='3' label='con' />
+                <Statistic color='green' size='mini' label='pro' value="3"/>
+                <Statistic color='red' size='mini' label='con' value="1"/>
               </Segment>
               <Segment>
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this, outcome.id)}>Delete</Button>
@@ -83,7 +83,6 @@ export default class OutcomeContainer extends Component {
         <Grid.Column >
           <Segment>
             <Header as='h2'>
-              <Icon name='balance' />
               <Header.Content>
                 POSSIBLE OUTCOMES
               </Header.Content>

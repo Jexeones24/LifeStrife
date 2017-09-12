@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, TextArea } from 'semantic-ui-react'
+import { Form, TextArea, Button } from 'semantic-ui-react'
 
 
 export default class OpinionForm extends Component {
@@ -22,7 +22,6 @@ export default class OpinionForm extends Component {
     let value = this.props.value
     this.props.createOpinion(content, outcomeId, value)
     this.setState({content:''})
-    // increment pro, con counter in
   }
 
   render(){
@@ -31,7 +30,7 @@ export default class OpinionForm extends Component {
       <Form onSubmit={this.handleSubmit}>
         <TextArea autoHeight placeholder={this.props.placeholder} rows={2}
         onChange={this.handleChange} value={this.state.content} required/>
-        <button>+</button>
+        <Button basic size="mini" color='black'>+</Button>
       </Form>
     )
   }

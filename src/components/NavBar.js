@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Image, Header, Button } from 'semantic-ui-react'
+import { Input, Menu, Image, Header, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 
@@ -30,6 +30,7 @@ export default class NavBar extends Component {
           <Header as='h2' textAlign='center'>
             <Header.Content>
               <h1>LIFE STRIFE</h1>
+              <Icon name="balance" size="huge"/>
             </Header.Content>
           </Header>
           <Image centered size='large' src='/assets/images/wireframe/centered-paragraph.png' />

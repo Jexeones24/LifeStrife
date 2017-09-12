@@ -13,6 +13,7 @@ export default class OpinionContainer extends Component {
 
   render(){
     console.log("this.props.opinions", this.props.opinions)
+
     return(
       <div className="opinion-container">
           <Statistic>
