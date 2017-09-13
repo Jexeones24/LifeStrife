@@ -8,7 +8,7 @@ export default class DecisionIndex extends Component {
       <div>
         {this.props.decisions ?
         this.props.decisions.map((decision, idx) =>
-        <Segment key={idx}>
+        <Segment key={idx} raised>
           <Grid columns={2} divided><Label as='a' color='green' ribbon>Overview</Label>
             <Grid.Row stretched>
               <Grid.Column>
@@ -23,12 +23,14 @@ export default class DecisionIndex extends Component {
 
               </Grid.Column>
               <Grid.Column>
-                <Segment>
+                <Segment raised>
                   <h3><header>OUTCOMES</header></h3>
-                  <Statistic color='grey' size='mini' label='Total' value={decision.outcomes.length} />
+                  <div>
+                    <Statistic color='grey' size='mini' label='Total' value={decision.outcomes.length} />
+                  </div>
                 </Segment>
 
-                <Segment>
+                <Segment raised>
 
                   <h3><header>OPINIONS</header></h3>
 

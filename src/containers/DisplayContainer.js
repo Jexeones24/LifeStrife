@@ -121,7 +121,7 @@ export default class DisplayContainer extends Component {
         <Grid columns={3} divided>
           <Grid.Row>
             <Grid.Column>
-              <Segment className="decision-show-title" >
+              <Segment className="decision-show-title" raised>
                 <Statistic>
                   <Statistic.Value text>
                     DECISION
@@ -170,7 +170,7 @@ export default class DisplayContainer extends Component {
 
             {/* pro & con column */}
             <Grid.Column >
-              <h1>PROS & CONS</h1>
+              <h2>OPINIONS</h2>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               <OpinionContainer opinions={outcome.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>

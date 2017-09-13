@@ -60,7 +60,7 @@ export default class OutcomeContainer extends Component {
         this.props.outcomes.map((outcome, idx) =>
 
           <div key={idx}>
-            <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
+            <Segment className="content-tile" key={idx} id={outcome.id} raised>
 
 
               <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.content}</h3>
@@ -81,7 +81,7 @@ export default class OutcomeContainer extends Component {
 
     return(
         <Grid.Column >
-          <Segment>
+          <Segment raised>
             <Header as='h2'>
               <Header.Content>
                 POSSIBLE OUTCOMES

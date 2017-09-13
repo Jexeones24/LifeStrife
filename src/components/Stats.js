@@ -5,7 +5,7 @@ import { Segment, Statistic, Button } from 'semantic-ui-react'
 const Stats = () => {
   return (
     <div>
-      <Segment as='h3' className="stats">
+      <Segment as='h3' className="stats" raised>
         <Segment>
           <Statistic>
             <Statistic.Value text>
