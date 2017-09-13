@@ -124,8 +124,9 @@ export default class DisplayContainer extends Component {
               <Segment className="decision-show-title" raised>
                 <Statistic>
                   <Statistic.Value text>
-                    DECISION
+                    <br /> Decision
                   </Statistic.Value>
+                  <Statistic.Label>click to edit</Statistic.Label>
                 </Statistic>
 
                 {this.state.isEditing ?
@@ -156,12 +157,8 @@ export default class DisplayContainer extends Component {
 
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this)}>Delete</Button>
               </Segment>
-              <Stats />
 
-              <Segment>
-                <Button basic size="mini" color='black'>CHOOSE OTHER</Button>
-                <Button inverted size="mini" color='red'>SAVE</Button>
-              </Segment>
+              <Stats />
 
             </Grid.Column>
 
@@ -170,7 +167,12 @@ export default class DisplayContainer extends Component {
 
             {/* pro & con column */}
             <Grid.Column >
-              <h2>OPINIONS</h2>
+              <Statistic>
+                <Statistic.Value text>
+                  <br /> OPINIONS
+                </Statistic.Value>
+                <Statistic.Label>PROS vs. CONS</Statistic.Label>
+              </Statistic>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               <OpinionContainer opinions={outcome.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>

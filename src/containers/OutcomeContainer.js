@@ -61,8 +61,7 @@ export default class OutcomeContainer extends Component {
 
           <div key={idx}>
             <Segment className="content-tile" key={idx} id={outcome.id} raised>
-
-
+              <br />
               <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.content}</h3>
               <Segment>
                 <Statistic color='green' size='mini' label='pro' value={outcome.pros}/>
@@ -82,12 +81,14 @@ export default class OutcomeContainer extends Component {
     return(
         <Grid.Column >
           <Segment raised>
-            <Header as='h2'>
-              <Header.Content>
-                POSSIBLE OUTCOMES
-              </Header.Content>
-            </Header>
-
+            <Statistic>
+              <Statistic.Value text>
+                <br />
+                POSSIBLE
+                <br /> OUTCOMES
+              </Statistic.Value>
+              <Statistic.Label>Highest Ranking</Statistic.Label>
+            </Statistic>
             {/* Adding new outcome */}
             <Segment as='h3' className="new-outcome-form">
               <Form onSubmit={this.handleSubmit}>
