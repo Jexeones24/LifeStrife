@@ -2,13 +2,7 @@ import React, { Component } from 'react'
 import { Statistic, Segment, Grid, Button } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
-  // constructor(){
-  //   super();
-  //
-  //   this.state = {
-  //     totalPros
-  //   }
-  // }
+
   render(){
     console.log(this.props.decisions)
 
@@ -34,13 +28,13 @@ export default class DecisionIndex extends Component {
               </Grid.Column>
               <Grid.Column>
                 <Segment>
-                  <header>OUTCOMES</header>
+                  <h2><header>OUTCOMES</header></h2>
                   <Statistic color='grey' size='mini' label='Total' value={decision.outcomes.length} />
                 </Segment>
 
                 <Segment>
 
-                  <header>OPINIONS</header>
+                  <h2><header>OPINIONS</header></h2>
 
                   <div>
                     <Statistic color='green' size='mini' label='Pros' value={decision.pros}/>

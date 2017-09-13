@@ -63,7 +63,7 @@ export default class OutcomeContainer extends Component {
             <Segment color='grey' className="content-tile" key={idx} id={outcome.id}>
 
 
-              <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.id}: {outcome.content}</h3>
+              <h3 onClick={this.setMessage.bind(this, outcome.content, outcome.id)}>{outcome.content}</h3>
               <Segment>
                 <Statistic color='green' size='mini' label='pro' value={outcome.pros}/>
                 <Statistic color='red' size='mini' label='con' value={outcome.cons}/>

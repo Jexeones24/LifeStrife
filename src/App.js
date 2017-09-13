@@ -39,23 +39,23 @@ class App extends Component {
       .then(decision => this.setState({...this.state.decisions, decision}, () => this.props.history.push(`/decisions/${decision.id}`))
     )
   }
-
-  editDecision = (content, id) => {
-    DecisionsAdapter.editDecision(content, id)
-    .then(newDecision => {
-      let index = this.state.decisions.findIndex(decision => {
-        return decision.id === id
-      })
-      this.setState({
-      //   decisions: [
-      //    ...this.state.decisions.slice(0,index), newDecision,
-      //    ...this.state.decisions.slice(index+1)
-      //  ]
-      decision: newDecision
-     });
-    })
-  }
-
+  //
+  // editDecision = (content, id) => {
+  //   DecisionsAdapter.editDecision(content, id)
+  //   .then(newDecision => {
+  //     let index = this.state.decisions.findIndex(decision => {
+  //       return decision.id === id
+  //     })
+  //     this.setState({
+  //     //   decisions: [
+  //     //    ...this.state.decisions.slice(0,index), newDecision,
+  //     //    ...this.state.decisions.slice(index+1)
+  //     //  ]
+  //     decision: newDecision
+  //    });
+  //   })
+  // }
+  //
 
   deleteDecision = (id) => {
     DecisionsAdapter.deleteDecision(id)
@@ -67,11 +67,6 @@ class App extends Component {
 
   newOutcome = (outcome) => {
     this.setState({outcomes: [...this.state.outcomes, outcome]})
-  }
-
-  incrementCounter = (outcomeId, value, decisionId) => {
-    let decision = this.state.decisions.filter((d) => d.id === decisionId)
-    let outcome = decision[0].outcomes.filter((o) => o.id === outcomeId)
   }
 
 
@@ -96,9 +91,9 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id} decision={this.state.decision}
-        decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
-        newOutcome={this.newOutcome} incrementCounter={this.incrementCounter}
+      <DecisionShow decisionId={decision.match.params.id}     decision={this.state.decision}
+      decisions={this.state.decisions} deleteDecision={this.deleteDecision}
+      newOutcome={this.newOutcome} incrementCounter={this.incrementCounter}
       />
     )
   }

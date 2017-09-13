@@ -9,37 +9,28 @@ export default class DecisionShow extends Component {
     super();
 
     this.state = {
-      // decision: null,
-      // outcomes: [],
-      // opinions: []
-
       decision: {
-        id: 100,
-        content: "decison_content",
+        content: "",
         outcomes: [
           {
-            id: 101,
-            content: "outcome_content",
-            pros:1,
+            content: "",
+            pros:0,
             cons:0,
             opinions: [
               {
-                id: 102,
-                content: "opinion_content",
-                value: true
+                content: "",
+                value: null
               }
             ]
           },
           {
-            id: 102,
-            content: "outcome_content_2",
+            content: "",
             pros: 0,
-            cons: 1,
+            cons: 0,
             opinions: [
               {
-                id: 103,
-                content: "opinion_content_2",
-                value: false
+                content: "",
+                value:null
               }
             ]
           }
@@ -57,6 +48,19 @@ export default class DecisionShow extends Component {
       })
   }
 
+  editDecision = (content, id) => {
+    DecisionsAdapter.editDecision(content, id)
+    .then(newDecision => {
+      console.log(newDecision)
+      let index = this.props.decisions.findIndex(decision => {
+        return decision.id === id
+      })
+       console.log(index)
+      const newDecisionObject = Object.assign({}, this.state.decision, {content:newDecision.content})
+      this.setState({decision:newDecisionObject}, () => {console.log(this.state.decision)})
+    })
+  }
+
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
       .then(newOutcome => {
@@ -71,7 +75,7 @@ export default class DecisionShow extends Component {
     OutcomesAdapter.deleteOutcome(id)
       .then(newOutcomes => {
         let outcomes = this.state.outcomes.filter((o) => o.id !== id)
-        this.setState({outcomes}, () => {console.log(this.state.outcomes)})
+        this.setState({outcomes})
       })
   }
 
@@ -89,7 +93,6 @@ export default class DecisionShow extends Component {
     })
   }
 
-  // increment pros and cons here...somehow
   createOpinion = (content, outcomeId, value) => {
     OpinionsAdapter.createOpinion(content, outcomeId, value)
       .then(newOpinion => {
@@ -119,7 +122,7 @@ export default class DecisionShow extends Component {
         {this.state.decision ?
         <DisplayContainer
         decision={this.state.decision} decisions={this.props.decisions}
-        editDecision={this.props.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.decision.outcomes} opinions={opinions}  createOutcome={this.createOutcome}
+        editDecision={this.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.decision.outcomes} opinions={opinions}  createOutcome={this.createOutcome}
         editOutcome={this.editOutcome}
         getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion} incrementCounter={this.props.incre}
         /> : []}
