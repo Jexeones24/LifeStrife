@@ -4,12 +4,6 @@ import { Statistic, Segment, Grid, Button, Label } from 'semantic-ui-react'
 export default class DecisionIndex extends Component {
 
   render(){
-    // let times = this.props.decisions.map((d) => d.created_at)
-    // let dates = times.map((t) => new Date(t))
-    // "2017-09-09T01:41:52.225Z"
-    // new Date("2017-09-09T01:41:52.225Z")
-    // => Fri Sep 08 2017 21:41:52 GMT-0400 (EDT)
-
     return(
       <div>
         {this.props.decisions ?
@@ -24,7 +18,9 @@ export default class DecisionIndex extends Component {
                     <h2>{decision.content.toUpperCase()}</h2>
                   </a>
                 </Segment>
-                {/* Created on: <h2>{decision.created_at}</h2> */}
+
+                <h4>Created on {decision.date_time}</h4>
+
               </Grid.Column>
               <Grid.Column>
                 <Segment>
