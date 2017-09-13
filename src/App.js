@@ -16,7 +16,7 @@ class App extends Component {
     super();
 
     this.state = {
-      currentUser: {username: "smorelli", id: 3},
+      currentUser: {username: "jexeones", id: 1},
       loggedIn: true,
       decision: {},
       decisions: [],
@@ -41,7 +41,6 @@ class App extends Component {
   }
 
   editDecision = (content, id) => {
-    debugger
     DecisionsAdapter.editDecision(content, id)
     .then(newDecision => {
       let index = this.state.decisions.findIndex(decision => {
@@ -71,6 +70,13 @@ class App extends Component {
     this.setState({outcomes: [...this.state.outcomes, outcome]})
   }
 
+  incrementCounter = (outcomeId, value, decisionId) => {
+    let decision = this.state.decisions.filter((d) => d.id === decisionId)
+    let outcome = decision[0].outcomes.filter((o) => o.id === outcomeId)
+    // find the outcome, update it's pros and cons??? how can i do that??? setState somehow
+
+  }
+
 
   renderSignup = () => {
     return(
@@ -84,9 +90,7 @@ class App extends Component {
     )
   }
 
-
   renderHome = (params) => {
-    // debugger
     return(
       <Home history={params.history} decisions={this.state.decisions}
       outcomes={this.state.outcomes} createDecision={this.createDecision}/>
@@ -95,16 +99,14 @@ class App extends Component {
 
   renderDecisionShow = (decision) => {
     return(
-      <DecisionShow decisionId={decision.match.params.id}
+      <DecisionShow decisionId={decision.match.params.id} decision={this.state.decision}
         decisions={this.state.decisions} editDecision={this.editDecision} deleteDecision={this.deleteDecision}
-        newOutcome={this.newOutcome}
+        newOutcome={this.newOutcome} incrementCounter={this.incrementCounter}
       />
     )
   }
 
   renderDecisionForm = (params) => {
-    debugger
-
     return (
       <DecisionForm createDecision={this.createDecision}/>
     )

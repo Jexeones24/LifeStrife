@@ -14,6 +14,7 @@ export default class DisplayContainer extends Component {
     super();
 
     this.state = {
+      decisionContent: "",
       outcomes:[],
       opinions:[],
       content: '',
@@ -23,8 +24,13 @@ export default class DisplayContainer extends Component {
       outcomeId: null,
       promptVisible: false,
       opinionFormVisible: false,
-      placeholder: ''
+      placeholder: '',
+      selectedOutcome: 0
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
   }
 
   handleChange = (e) => {
@@ -70,17 +76,27 @@ export default class DisplayContainer extends Component {
   }
 
   getOpinions = (id) => {
-    OutcomesAdapter.showOpinions(id)
-      .then(outcome => {this.setState({
-        opinions: outcome.opinions})
+
+    this.setState({
+        selectedOutcome: id
+        // opinions: outcome.opinions
     })
+
+    // OutcomesAdapter.showOpinions(id)
+    //   .then(outcome => {this.setState({
+    //     opinions: outcome.opinions})
+    // })
   }
 
   createOpinion = (content, value, outcomeId) => {
-    OpinionsAdapter.createOpinion(content, value, outcomeId)
-      .then(opinion => {
-        this.setState({opinions:[...this.state.opinions, opinion]})
-      })
+      this.props.createOpinion(content, value, outcomeId)
+
+
+
+    // OpinionsAdapter.createOpinion(content, value, outcomeId)
+    //   .then(opinion => {
+    //     this.setState({opinions:[...this.state.opinions, opinion]}, () => {this.props.incrementCounter(value, outcomeId, this.props.decision.id)})
+    //   })
   }
 
   setMessage = () => {
@@ -110,6 +126,15 @@ export default class DisplayContainer extends Component {
         value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.createOpinion} placeholder={this.state.placeholder}/> : null
       )
     }
+
+    const outcomeFilter = this.props.decision.outcomes.filter((outcome) => {
+      return outcome.id == this.state.selectedOutcome
+    })
+
+    let outcome = outcomeFilter.length != 0 ? outcomeFilter[0] : {opinions:[]}
+
+
+
 
     return(
 
@@ -161,7 +186,7 @@ export default class DisplayContainer extends Component {
 
             </Grid.Column>
 
-            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} opinions={this.state.opinions} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}
+            <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}
             />
 
             {/* pro & con column */}
@@ -169,7 +194,7 @@ export default class DisplayContainer extends Component {
               <h1>PROS & CONS</h1>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              <OpinionContainer opinions={this.state.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
+              <OpinionContainer opinions={outcome.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
 
             </Grid.Column>
           </Grid.Row>
