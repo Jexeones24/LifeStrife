@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import { Statistic, Segment, Grid, Button } from 'semantic-ui-react'
 
 export default class DecisionIndex extends Component {
-
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps)
-  }
-
+  // constructor(){
+  //   super();
+  //
+  //   this.state = {
+  //     totalPros
+  //   }
+  // }
   render(){
     console.log(this.props.decisions)
+
     // let times = this.props.decisions.map((d) => d.created_at)
     // let dates = times.map((t) => new Date(t))
     // "2017-09-09T01:41:52.225Z"
@@ -17,7 +20,6 @@ export default class DecisionIndex extends Component {
 
 
     return(
-
       <div>
         {this.props.decisions ?
         this.props.decisions.map((decision, idx) =>
@@ -37,11 +39,13 @@ export default class DecisionIndex extends Component {
                 </Segment>
 
                 <Segment>
-                  <header>OPINIONS</header>
-                  
 
-                  <Statistic color='green' size='mini' label='Pros' value='2' />
-                  <Statistic color='red' size='mini' label='Cons' value='4' />
+                  <header>OPINIONS</header>
+
+                  <div>
+                    <Statistic color='green' size='mini' label='Pros' value={decision.pros}/>
+                    <Statistic color='red' size='mini' label='Cons' value={decision.cons} />
+                  </div>
                 </Segment>
               </Grid.Column>
             </Grid.Row>

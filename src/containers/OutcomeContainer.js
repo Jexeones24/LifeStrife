@@ -38,7 +38,6 @@ export default class OutcomeContainer extends Component {
 
   handleAddOpinion = (id) => {
     this.props.getOutcomeId(id)
-    // should increment counter here
   }
 
   viewOpinions = (id) => {

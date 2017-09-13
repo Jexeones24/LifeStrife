@@ -19,7 +19,7 @@ export default class Home extends Component {
     return(
       <div className="home-container">
         <Container text>
-          <DecisionIndex decisions={this.props.decisions} outcomes={this.props.outcomes} renderDecisionForm={this.renderDecisionForm}/>
+          <DecisionIndex decisions={this.props.decisions} renderDecisionForm={this.renderDecisionForm}/>
         </Container>
       </div>
     )

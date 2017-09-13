@@ -58,27 +58,13 @@ export default class DecisionShow extends Component {
   }
 
   createOutcome = (content, decisionId) => {
-    const newOutcome = {
-      id: 1004,
-      content: content
-    }
+    OutcomesAdapter.createOutcome(content, decisionId)
+      .then(newOutcome => {
+        const newDecision = Object.assign({}, this.state.decision, { outcomes: [...this.state.decision.outcomes, newOutcome]})
+        this.setState({decision: newDecision})
 
-
-
-    const newDecision = Object.assign({}, this.state.decision, { outcomes: [...this.state.decision.outcomes, newOutcome]})
-    this.setState({
-      decision: newDecision
-    })
-
-
-    //TODO: COME BACK TO THIS
-    // OutcomesAdapter.createOutcome(content, decisionId)
-    //   .then(newOutcome => {
-    //     const newDecision = Object.assign({}, this.state.decision, { outcomes: [...this.state.decision.outcomes, newOutcome]})
-    //     this.setState({decision: newDecision})
-    //
-    //   }
-    // )
+      }
+    )
   }
 
   deleteOutcome = (id) => {
@@ -120,8 +106,6 @@ export default class DecisionShow extends Component {
         }, () => {
           console.log(this.state.decision)
         })
-
-        // this.setState({opinions:[...this.state.opinions, opinion]})
       })
   }
 

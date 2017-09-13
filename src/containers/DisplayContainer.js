@@ -29,10 +29,6 @@ export default class DisplayContainer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps)
-  }
-
   handleChange = (e) => {
     this.setState({content:e.target.value})
   }
@@ -46,7 +42,6 @@ export default class DisplayContainer extends Component {
     e.preventDefault();
     this.props.deleteDecision(this.props.decision.id)
     this.setState({content:''})
-    // have to redirect and destroy all outcomes/opinions associated
   }
 
 
@@ -76,27 +71,11 @@ export default class DisplayContainer extends Component {
   }
 
   getOpinions = (id) => {
-
-    this.setState({
-        selectedOutcome: id
-        // opinions: outcome.opinions
-    })
-
-    // OutcomesAdapter.showOpinions(id)
-    //   .then(outcome => {this.setState({
-    //     opinions: outcome.opinions})
-    // })
+    this.setState({selectedOutcome: id})
   }
 
   createOpinion = (content, value, outcomeId) => {
       this.props.createOpinion(content, value, outcomeId)
-
-
-
-    // OpinionsAdapter.createOpinion(content, value, outcomeId)
-    //   .then(opinion => {
-    //     this.setState({opinions:[...this.state.opinions, opinion]}, () => {this.props.incrementCounter(value, outcomeId, this.props.decision.id)})
-    //   })
   }
 
   setMessage = () => {

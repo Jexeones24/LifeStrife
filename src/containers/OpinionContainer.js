@@ -22,7 +22,7 @@ export default class OpinionContainer extends Component {
           </Statistic>
 
           {this.props.opinions && this.props.opinions.length > 0 ?
-          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : <h3>No opinions submitted</h3>}
+          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : []}
       </div>
     )
   }
