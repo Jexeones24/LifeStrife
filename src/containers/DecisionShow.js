@@ -116,7 +116,7 @@ export default class DecisionShow extends Component {
   render(){
 
     const opinions = this.state.decision.outcomes.map((outcome) => outcome.opinions).reduce((a, b) => a.concat(b), [])
-    console.log(opinions)
+    
     return(
       <div>
         {this.state.decision ?
