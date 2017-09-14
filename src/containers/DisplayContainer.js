@@ -66,7 +66,7 @@ export default class DisplayContainer extends Component {
   getOutcomeId = (id) => {
     this.setState({
       outcomeId:id,
-      promptVisible:!this.state.promptVisible
+      promptVisible:true
     })
   }
 
@@ -101,8 +101,6 @@ export default class DisplayContainer extends Component {
   customValidateText = (text) => {
     return (text.length > 0 && text.length < 150);
   }
-
-
 
   handleSave = () => {
     console.log("handling save")
