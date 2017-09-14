@@ -53,13 +53,8 @@ export default class DecisionShow extends Component {
   deleteOutcome = (id) => {
     OutcomesAdapter.deleteOutcome(id)
       .then(newOutcomes => {
-        // outcomes without deleted one
-        console.log("newOutcomes", newOutcomes)
-
         const newDecision = Object.assign({}, this.state.decision, { outcomes:newOutcomes})
-        console.log(newDecision)
-
-        this.setState({decision: newDecision}, () => {console.log(this.state.decision)})
+        this.setState({decision: newDecision})
       })
   }
 
@@ -93,8 +88,8 @@ export default class DecisionShow extends Component {
 
   deleteOpinion = (id, outcomeId) => {
     OpinionsAdapter.deleteOpinion(id)
-      .then(allOpinions => {
-        let newOpinions = allOpinions.filter((o) => o.outcome_id === outcomeId)
+      .then(newOpinions => {
+        // let newOpinions = newOpinions.filter((o) => o.outcome_id === outcomeId)
         const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
         const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
         const new_outcome = Object.assign({}, old_outcome, { opinions:newOpinions})
@@ -106,7 +101,7 @@ export default class DecisionShow extends Component {
 
 
   render(){
-
+    console.log(this.props.decisions)
     const opinions = this.state.decision.outcomes.map((outcome) => outcome.opinions).reduce((a, b) => a.concat(b), [])
 
     return(

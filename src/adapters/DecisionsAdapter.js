@@ -29,7 +29,6 @@ export default class DecisionsAdapter {
 
 
     static editDecision(content, id){
-      debugger
       return fetch(`http://localhost:3000/api/v1/decisions/${id}`, {
         method: 'put',
         headers: headers(),

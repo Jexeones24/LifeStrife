@@ -18,7 +18,6 @@ const Stats = () => {
           <Segment as='h3' className="stats">
               <Statistic size='mini' label='I am the best outcome' />
               <div>
-                <Button basic size="mini" color='black'>CHOOSE OTHER</Button>
                 <Button inverted size="mini" color='red'>SAVE</Button>
               </div>
           </Segment>

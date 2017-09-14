@@ -192,8 +192,10 @@ export default class DisplayContainer extends Component {
 const Prompt = ({handleProForm, handleConForm}) => {
   return (
     <div>
-      <Button basic size="mini" value="true" color='green' onClick={handleProForm}>PRO</Button>
-      <Button basic size="mini" value="false" color='red' onClick={handleConForm}>CON</Button>
+      <Segment>
+        <Button basic size="mini" value="true" color='green' onClick={handleProForm}>PRO</Button>
+        <Button basic size="mini" value="false" color='red' onClick={handleConForm}>CON</Button>
+      </Segment>
     </div>
   )
 }
