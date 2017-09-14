@@ -12,32 +12,13 @@ export default class DecisionShow extends Component {
       decision: {
         content: "",
         outcomes: [
-          {
-            content: "",
-            pros:0,
-            cons:0,
+          { content: "",
             opinions: [
-              {
-                content: "",
-                value: null
-              }
-            ]
-          },
-          {
-            content: "",
-            pros: 0,
-            cons: 0,
-            opinions: [
-              {
-                content: "",
-                value:null
-              }
+              {content: ""}
             ]
           }
         ]
       }
-
-
     }
   }
 
@@ -51,13 +32,11 @@ export default class DecisionShow extends Component {
   editDecision = (content, id) => {
     DecisionsAdapter.editDecision(content, id)
     .then(newDecision => {
-      console.log(newDecision)
       let index = this.props.decisions.findIndex(decision => {
         return decision.id === id
       })
-       console.log(index)
       const newDecisionObject = Object.assign({}, this.state.decision, {content:newDecision.content})
-      this.setState({decision:newDecisionObject}, () => {console.log(this.state.decision)})
+      this.setState({decision:newDecisionObject})
     })
   }
 
@@ -87,17 +66,14 @@ export default class DecisionShow extends Component {
         this.setState({
           outcomes: [
            ...this.state.outcomes.slice(0,index), newOutcome,
-           ...this.state.outcomes.slice(index+1)
-         ]
-       }, () => {console.log(this.state.outcomes)});
+           ...this.state.outcomes.slice(index+1)]
+       });
     })
   }
 
   createOpinion = (content, outcomeId, value) => {
     OpinionsAdapter.createOpinion(content, outcomeId, value)
       .then(newOpinion => {
-
-        console.log(newOpinion, outcomeId)
         const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
         const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
         const pro_or_con = newOpinion.value ? { pros: old_outcome.pros + 1 } : { cons: old_outcome.cons + 1 }
@@ -106,9 +82,20 @@ export default class DecisionShow extends Component {
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
         this.setState({
           decision: newDecision
-        }, () => {
-          console.log(this.state.decision)
         })
+      })
+  }
+
+  deleteOpinion = (id, outcomeId) => {
+    OpinionsAdapter.deleteOpinion(id)
+      .then(allOpinions => {
+        let newOpinions = allOpinions.filter((o) => o.outcome_id === outcomeId)
+        const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
+        const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
+        const new_outcome = Object.assign({}, old_outcome, { opinions:newOpinions})
+        const new_outcomes_array = [...this.state.decision.outcomes.slice(0, outcomeIndex),new_outcome, ...this.state.decision.outcomes.slice(outcomeIndex+1)]
+        const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
+        this.setState({decision:newDecision})
       })
   }
 
@@ -116,7 +103,7 @@ export default class DecisionShow extends Component {
   render(){
 
     const opinions = this.state.decision.outcomes.map((outcome) => outcome.opinions).reduce((a, b) => a.concat(b), [])
-    
+
     return(
       <div>
         {this.state.decision ?
@@ -124,7 +111,7 @@ export default class DecisionShow extends Component {
         decision={this.state.decision} decisions={this.props.decisions}
         editDecision={this.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.decision.outcomes} opinions={opinions}  createOutcome={this.createOutcome}
         editOutcome={this.editOutcome}
-        getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion} incrementCounter={this.props.incre}
+        getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion} deleteOpinion={this.deleteOpinion}
         /> : []}
       </div>
     )

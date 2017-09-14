@@ -39,23 +39,6 @@ class App extends Component {
       .then(decision => this.setState({...this.state.decisions, decision}, () => this.props.history.push(`/decisions/${decision.id}`))
     )
   }
-  //
-  // editDecision = (content, id) => {
-  //   DecisionsAdapter.editDecision(content, id)
-  //   .then(newDecision => {
-  //     let index = this.state.decisions.findIndex(decision => {
-  //       return decision.id === id
-  //     })
-  //     this.setState({
-  //     //   decisions: [
-  //     //    ...this.state.decisions.slice(0,index), newDecision,
-  //     //    ...this.state.decisions.slice(index+1)
-  //     //  ]
-  //     decision: newDecision
-  //    });
-  //   })
-  // }
-  //
 
   deleteDecision = (id) => {
     DecisionsAdapter.deleteDecision(id)

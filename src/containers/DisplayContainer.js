@@ -75,7 +75,11 @@ export default class DisplayContainer extends Component {
   }
 
   createOpinion = (content, value, outcomeId) => {
-      this.props.createOpinion(content, value, outcomeId)
+    this.props.createOpinion(content, value, outcomeId)
+  }
+
+  deleteOpinion = (id, outcomeId) => {
+    this.props.deleteOpinion(id, outcomeId)
   }
 
   setMessage = () => {
@@ -111,9 +115,6 @@ export default class DisplayContainer extends Component {
     })
 
     let outcome = outcomeFilter.length != 0 ? outcomeFilter[0] : {opinions:[]}
-
-
-
 
     return(
 
@@ -169,13 +170,16 @@ export default class DisplayContainer extends Component {
             <Grid.Column >
               <Statistic>
                 <Statistic.Value text>
-                  <br /> OPINIONS
+                  <br /> PROS vs. CONS
                 </Statistic.Value>
-                <Statistic.Label>PROS vs. CONS</Statistic.Label>
+                <Statistic.Label>click to delete</Statistic.Label>
               </Statistic>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              <OpinionContainer opinions={outcome.opinions} createOpinion={this.createOpinion} hideOpinionForm={this.hideOpinionForm} outcomeId={this.state.outcomeId}/>
+              <OpinionContainer opinions={outcome.opinions}   createOpinion={this.createOpinion}
+              deleteOpinion={this.deleteOpinion} hideOpinionForm={this.hideOpinionForm}
+              outcomeId={this.state.selectedOutcome}
+              />
 
             </Grid.Column>
           </Grid.Row>

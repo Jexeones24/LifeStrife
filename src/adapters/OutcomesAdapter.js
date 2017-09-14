@@ -26,7 +26,6 @@ export default class OutcomesAdapter {
   }
 
   static showOpinions(id){
-    console.log("in outcomes adapter")
     return fetch(`http://localhost:3000/api/v1/outcomes/${id}`, {
       method: 'get',
       headers: headers()

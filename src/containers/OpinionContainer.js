@@ -11,18 +11,22 @@ export default class OpinionContainer extends Component {
     }
   }
 
-  render(){
-    console.log("this.props.opinions", this.props.opinions)
+  handleClick = (id) => {
+    this.props.deleteOpinion(id, this.props.outcomeId)
+  }
 
+  render(){
+
+    let outcomeId = this.props.outcomeId
     return(
       <div className="opinion-container">
-          <Statistic>
+          {/* <Statistic>
             {this.props.outcome ?
             <Statistic.Label>Outcome: {this.props.outcome[0].content}</Statistic.Label> : null }
-          </Statistic>
+          </Statistic> */}
 
           {this.props.opinions && this.props.opinions.length > 0 ?
-          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value}/>) : []}
+          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value} handleClick={this.handleClick.bind(this, o.id)}/>) : []}
       </div>
     )
   }
@@ -30,7 +34,7 @@ export default class OpinionContainer extends Component {
 
 
 
-const Tile = ({color, content , idx}) => {
+const Tile = ({color, content , idx, handleClick}) => {
   let outline = null;
   if(color === true) {
     outline = 'green'
@@ -39,6 +43,6 @@ const Tile = ({color, content , idx}) => {
   }
 
   return (
-    <Card fluid color={outline} header={content} key={idx}/>
+    <Card fluid color={outline} header={content} key={idx} onClick={handleClick}/>
   )
 }

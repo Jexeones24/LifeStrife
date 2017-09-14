@@ -40,8 +40,8 @@ export default class OutcomeContainer extends Component {
     this.props.getOutcomeId(id)
   }
 
-  viewOpinions = (id) => {
-    this.props.getOpinions(id)
+  viewOpinions = (outcomeId) => {
+    this.props.getOpinions(outcomeId)
   }
 
   setMessage = (content, outcomeId) => {
@@ -87,7 +87,6 @@ export default class OutcomeContainer extends Component {
                 POSSIBLE
                 <br /> OUTCOMES
               </Statistic.Value>
-              <Statistic.Label>Highest Ranking</Statistic.Label>
             </Statistic>
             {/* Adding new outcome */}
             <Segment as='h3' className="new-outcome-form">
