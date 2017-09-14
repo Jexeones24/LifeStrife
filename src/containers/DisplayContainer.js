@@ -182,6 +182,7 @@ export default class DisplayContainer extends Component {
                 </Statistic.Value>
                 <Statistic.Label>click to delete</Statistic.Label>
               </Statistic>
+
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
               <OpinionContainer opinions={outcome.opinions}
@@ -201,11 +202,11 @@ export default class DisplayContainer extends Component {
 
 const Prompt = ({handleProForm, handleConForm}) => {
   return (
-    <div>
+    <Segment raised>
       <Segment>
         <Button basic size="mini" value="true" color='green' onClick={handleProForm}>PRO</Button>
         <Button basic size="mini" value="false" color='red' onClick={handleConForm}>CON</Button>
       </Segment>
-    </div>
+    </Segment>
   )
 }
