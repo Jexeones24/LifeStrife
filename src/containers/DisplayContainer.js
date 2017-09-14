@@ -14,9 +14,9 @@ export default class DisplayContainer extends Component {
     super();
 
     this.state = {
-      decisionContent: "",
-      outcomes:[],
-      opinions:[],
+      // decisionContent: "",
+      // outcomes:[],
+      // opinions:[],
       content: '',
       value: '',
       message: '',
@@ -78,8 +78,8 @@ export default class DisplayContainer extends Component {
     this.props.createOpinion(content, value, outcomeId)
   }
 
-  deleteOpinion = (id, outcomeId) => {
-    this.props.deleteOpinion(id, outcomeId)
+  deleteOpinion = (id, outcomeId, value) => {
+    this.props.deleteOpinion(id, outcomeId, value)
   }
 
   setMessage = () => {
@@ -102,6 +102,16 @@ export default class DisplayContainer extends Component {
     return (text.length > 0 && text.length < 150);
   }
 
+
+
+  handleSave = () => {
+    console.log("handling save")
+    console.log("decision id", this.props.decision.id)
+    // make post and set pending to false
+    // need outcomeId and decision id
+    // redirect to '/'
+  }
+
   render(){
     let showOpinionForm = () => {
       return (
@@ -117,7 +127,6 @@ export default class DisplayContainer extends Component {
     let outcome = outcomeFilter.length != 0 ? outcomeFilter[0] : {opinions:[]}
 
     return(
-
       <div className="decision-display-container">
         <Grid columns={3} divided>
           <Grid.Row>
@@ -159,10 +168,9 @@ export default class DisplayContainer extends Component {
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this)}>Delete</Button>
               </Segment>
 
-              <Stats />
+              <Stats handleSave={this.handleSave} highestRanking={this.props.highestRanking}/>
 
             </Grid.Column>
-
             <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}
             />
 
@@ -176,7 +184,9 @@ export default class DisplayContainer extends Component {
               </Statistic>
               {this.state.promptVisible ? <Prompt handleProForm={this.handleProForm} handleConForm={this.handleConForm}/> : showOpinionForm()}
 
-              <OpinionContainer opinions={outcome.opinions}   createOpinion={this.createOpinion}
+              <OpinionContainer opinions={outcome.opinions}
+              outcome={outcome}
+              createOpinion={this.createOpinion}
               deleteOpinion={this.deleteOpinion} hideOpinionForm={this.hideOpinionForm}
               outcomeId={this.state.selectedOutcome}
               />

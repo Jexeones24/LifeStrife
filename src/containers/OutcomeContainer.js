@@ -54,6 +54,7 @@ export default class OutcomeContainer extends Component {
   }
 
   render(){
+    console.log(this.props.outcomes)
     let outcomesToShow = () => {
       return (
         this.props.outcomes &&

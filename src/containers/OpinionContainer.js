@@ -1,38 +1,30 @@
 import React, {Component} from 'react'
-import { Statistic, Card } from 'semantic-ui-react'
+import {Card} from 'semantic-ui-react'
 
 export default class OpinionContainer extends Component {
   constructor(){
     super();
 
     this.state = {
-      value: '',
-      outcomeId: null
+      value: ''
     }
   }
 
-  handleClick = (id) => {
-    this.props.deleteOpinion(id, this.props.outcomeId)
+  handleClick = (o) => {
+    let id = o.id
+    let value = o.value
+    this.props.deleteOpinion(id, this.props.outcomeId, value)
   }
 
   render(){
-
-    let outcomeId = this.props.outcomeId
     return(
       <div className="opinion-container">
-          {/* <Statistic>
-            {this.props.outcome ?
-            <Statistic.Label>Outcome: {this.props.outcome[0].content}</Statistic.Label> : null }
-          </Statistic> */}
-
           {this.props.opinions && this.props.opinions.length > 0 ?
-          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value} handleClick={this.handleClick.bind(this, o.id)}/>) : []}
+          this.props.opinions.map((o, idx) => <Tile key={idx} content={o.content} color={o.value} handleClick={this.handleClick.bind(this, o)}/>) : []}
       </div>
     )
   }
 }
-
-
 
 const Tile = ({color, content , idx, handleClick}) => {
   let outline = null;

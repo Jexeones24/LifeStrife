@@ -18,7 +18,8 @@ export default class DecisionShow extends Component {
             ]
           }
         ]
-      }
+      },
+      highestRanking: []
     }
   }
 
@@ -82,29 +83,39 @@ export default class DecisionShow extends Component {
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
         this.setState({
           decision: newDecision
-        })
+        }, () => this.highestRanking())
       })
   }
 
-  deleteOpinion = (id, outcomeId) => {
+
+
+  deleteOpinion = (id, outcomeId, value) => {
     OpinionsAdapter.deleteOpinion(id)
       .then(newOpinions => {
-        // let newOpinions = newOpinions.filter((o) => o.outcome_id === outcomeId)
         const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
         const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
-        const new_outcome = Object.assign({}, old_outcome, { opinions:newOpinions})
+        const pro_or_con = value ? { pros: old_outcome.pros - 1 } : { cons: old_outcome.cons - 1 }
+        const new_outcome = Object.assign({}, old_outcome, {opinions: [...old_outcome.opinions, newOpinions]}, pro_or_con)
         const new_outcomes_array = [...this.state.decision.outcomes.slice(0, outcomeIndex),new_outcome, ...this.state.decision.outcomes.slice(outcomeIndex+1)]
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
         this.setState({decision:newDecision})
       })
   }
 
+  highestRanking = () => {
+    let outcomes = this.state.decision.outcomes
+    let highestScore = Math.max.apply(Math, outcomes.map((o)=> o.score))
+    return outcomes.filter((o) => o.score === highestScore)
+    // this.setState({highestRanking}, () => {console.log(this.state.highestRanking[0])})
+  }
+
 
   render(){
-    console.log(this.props.decisions)
     const opinions = this.state.decision.outcomes.map((outcome) => outcome.opinions).reduce((a, b) => a.concat(b), [])
-
+    const highestRanking = this.highestRanking()
+    console.log(highestRanking)
     return(
+
       <div>
         {this.state.decision ?
         <DisplayContainer
@@ -112,6 +123,7 @@ export default class DecisionShow extends Component {
         editDecision={this.editDecision} deleteDecision={this.props.deleteDecision} outcomes={this.state.decision.outcomes} opinions={opinions}  createOutcome={this.createOutcome}
         editOutcome={this.editOutcome}
         getOutcomeId={this.getOutcomeId} deleteOutcome={this.deleteOutcome} createOpinion={this.createOpinion} deleteOpinion={this.deleteOpinion}
+        highestRanking={highestRanking}
         /> : []}
       </div>
     )
