@@ -53,8 +53,13 @@ export default class DecisionShow extends Component {
   deleteOutcome = (id) => {
     OutcomesAdapter.deleteOutcome(id)
       .then(newOutcomes => {
-        let outcomes = this.state.outcomes.filter((o) => o.id !== id)
-        this.setState({outcomes})
+        // outcomes without deleted one
+        console.log("newOutcomes", newOutcomes)
+
+        const newDecision = Object.assign({}, this.state.decision, { outcomes:newOutcomes})
+        console.log(newDecision)
+
+        this.setState({decision: newDecision}, () => {console.log(this.state.decision)})
       })
   }
 

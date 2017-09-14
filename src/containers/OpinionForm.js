@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, TextArea, Button } from 'semantic-ui-react'
+import { Form, TextArea, Button, Segment } from 'semantic-ui-react'
 
 
 export default class OpinionForm extends Component {
@@ -26,12 +26,13 @@ export default class OpinionForm extends Component {
 
   render(){
     return (
-
-      <Form onSubmit={this.handleSubmit}>
-        <TextArea autoHeight placeholder={this.props.placeholder} rows={2}
-        onChange={this.handleChange} value={this.state.content} required/>
-        <Button basic size="mini" color='black'>+</Button>
-      </Form>
+      <Segment raised>
+        <Form onSubmit={this.handleSubmit}>
+          <TextArea autoHeight placeholder={this.props.placeholder} rows={2}
+          onChange={this.handleChange} value={this.state.content} required/>
+          <Button basic size="mini" color='black'>+</Button>
+        </Form>
+      </Segment>
     )
   }
 }
