@@ -3,9 +3,27 @@ import { Segment, Statistic, Button } from 'semantic-ui-react'
 
 
 export default class Stats extends Component {
+  constructor(){
+    super();
+
+    this.state = {
+      bestOutcome: {}
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+    if(nextProps.highestRanking !== this.props.highestRanking){
+      this.setState({bestOutcome:nextProps.highestRanking[0]})
+    }
+  }
 
   render(){
-    const ranking = this.props.highestRanking[0] ? this.props.highestRanking[0] : {}
+
+    const ranking = this.state.bestOutcome ? this.state.bestOutcome : {}
+
+    // console.log(this.state.bestOutcome.content)
+
     return (
       <div>
         <Segment as='h3' className="stats" raised>
@@ -19,7 +37,8 @@ export default class Stats extends Component {
             </Statistic>
 
             <Segment as='h3' className="stats">
-                <Statistic size='mini' label={ranking.content} />
+              {this.state.bestOutcome ? <Statistic size='mini' label={this.state.bestOutcome.content} /> : null}
+
                 <div>
                   <Button inverted size="mini" color='red' onClick={this.props.handleSave}>SAVE</Button>
                 </div>

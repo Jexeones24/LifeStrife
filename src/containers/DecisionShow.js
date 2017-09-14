@@ -18,9 +18,9 @@ export default class DecisionShow extends Component {
             ]
           }
         ]
-      },
-      highestRanking: []
+      }
     }
+    this.deleteOutcome = this.deleteOutcome.bind(this)
   }
 
   componentDidMount(){
@@ -54,7 +54,14 @@ export default class DecisionShow extends Component {
   deleteOutcome = (id) => {
     OutcomesAdapter.deleteOutcome(id)
       .then(newOutcomes => {
-        const newDecision = Object.assign({}, this.state.decision, { outcomes:newOutcomes})
+        console.log("outcomeid", id)
+        //these are all remaining outcomes
+        console.log("newOutcomes", newOutcomes)
+        debugger
+        // filter through to find only ones with decision id
+        let outcomes = newOutcomes.filter((o) => o.decision_id === this.state.decision.id)
+        console.log("filtered outcomes", outcomes)
+        const newDecision = Object.assign({}, this.state.decision, { outcomes})
         this.setState({decision: newDecision})
       })
   }
@@ -83,7 +90,7 @@ export default class DecisionShow extends Component {
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
         this.setState({
           decision: newDecision
-        }, () => this.highestRanking())
+        })
       })
   }
 
@@ -111,8 +118,9 @@ export default class DecisionShow extends Component {
 
   render(){
     const opinions = this.state.decision.outcomes.map((outcome) => outcome.opinions).reduce((a, b) => a.concat(b), [])
+
     const highestRanking = this.highestRanking()
-    console.log(highestRanking)
+
     return(
 
       <div>

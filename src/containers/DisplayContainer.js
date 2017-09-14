@@ -166,7 +166,9 @@ export default class DisplayContainer extends Component {
                 <Button basic size="mini" color='black' onClick={this.handleDelete.bind(this)}>Delete</Button>
               </Segment>
 
-              <Stats handleSave={this.handleSave} highestRanking={this.props.highestRanking}/>
+              <Stats handleSave={this.handleSave} highestRanking={this.props.highestRanking}
+              bestOutcome={this.props.bestOutcome}
+              />
 
             </Grid.Column>
             <OutcomeContainer outcomes={this.props.outcomes} decisionId={this.props.decision.id} createOutcome={this.props.createOutcome} deleteOutcome={this.props.deleteOutcome} editOutcome={this.props.editOutcome} getOutcomeId={this.getOutcomeId} getOpinions={this.getOpinions}
