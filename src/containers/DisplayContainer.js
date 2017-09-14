@@ -115,8 +115,8 @@ export default class DisplayContainer extends Component {
   render(){
     let showOpinionForm = () => {
       return (
-        this.state.opinionFormVisible ? <OpinionForm
-        value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.createOpinion} placeholder={this.state.placeholder}/> : null
+        this.state.opinionFormVisible && <OpinionForm
+        value={this.state.value} outcomeId={this.state.outcomeId} createOpinion={this.createOpinion} placeholder={this.state.placeholder}/>
       )
     }
 

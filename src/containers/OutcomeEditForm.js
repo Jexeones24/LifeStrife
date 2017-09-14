@@ -12,18 +12,6 @@ export default class OutcomeEditForm extends Component {
     }
   }
 
-  handleChange = (e) => {
-    this.setState({content:e.target.value})
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    let content = this.state.content
-    let outcomeId = this.props.outcomeId
-    this.props.editOutcome(content, outcomeId)
-    this.setState({content:''})
-  }
-
   dataChanged = (data) => {
     let content = data.message
     this.setState({content:content})

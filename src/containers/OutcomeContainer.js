@@ -36,8 +36,9 @@ export default class OutcomeContainer extends Component {
     })
   }
 
-  handleAddOpinion = (id) => {
-    this.props.getOutcomeId(id)
+  handleAddOpinion = (outcomeId) => {
+    this.props.getOutcomeId(outcomeId)
+    this.props.getOpinions(outcomeId)
   }
 
   viewOpinions = (outcomeId) => {

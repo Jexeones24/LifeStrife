@@ -106,7 +106,6 @@ export default class DecisionShow extends Component {
     let outcomes = this.state.decision.outcomes
     let highestScore = Math.max.apply(Math, outcomes.map((o)=> o.score))
     return outcomes.filter((o) => o.score === highestScore)
-    // this.setState({highestRanking}, () => {console.log(this.state.highestRanking[0])})
   }
 
 

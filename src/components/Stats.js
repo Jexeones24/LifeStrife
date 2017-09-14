@@ -5,7 +5,6 @@ import { Segment, Statistic, Button } from 'semantic-ui-react'
 export default class Stats extends Component {
 
   render(){
-    // let bestOutcome = this.props.highestRanking.content
     const ranking = this.props.highestRanking[0] ? this.props.highestRanking[0] : {}
     return (
       <div>
