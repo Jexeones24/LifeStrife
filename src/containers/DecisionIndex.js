@@ -9,7 +9,7 @@ export default class DecisionIndex extends Component {
         {this.props.decisions ?
         this.props.decisions.map((decision, idx) =>
         <Segment key={idx} raised>
-          <Grid columns={2} divided><Label as='a' color='green' ribbon>Overview</Label>
+          <Grid columns={2} divided><Label as='a' color='green' ribbon>Pending</Label>
             <Grid.Row stretched>
               <Grid.Column>
                 <Segment raised>

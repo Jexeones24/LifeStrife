@@ -44,7 +44,7 @@ export default class DecisionShow extends Component {
   createOutcome = (content, decisionId) => {
     OutcomesAdapter.createOutcome(content, decisionId)
       .then(newOutcome => {
-        const newDecision = Object.assign({}, this.state.decision, { outcomes: [...this.state.decision.outcomes, newOutcome]})
+        const newDecision = Object.assign({}, this.state.decision, { outcomes: [newOutcome, ...this.state.decision.outcomes]})
         this.setState({decision: newDecision})
 
       }
@@ -93,28 +93,13 @@ export default class DecisionShow extends Component {
   deleteOpinion = (id, outcomeId, value) => {
     OpinionsAdapter.deleteOpinion(id)
       .then(newOpinions => {
-        // all opinions
-        console.log("newOpinions", newOpinions)
-        // debugger
-
-        // don't feel like the outcome index is right - it's 0
         const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
-        console.log(outcomeIndex)
-        //these are the right opinions
         const opinions = newOpinions.filter((o) => o.outcome_id === outcomeId)
-
-        console.log("opinions", opinions)
-
         const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
-
         const pro_or_con = value ? { pros: old_outcome.pros - 1 } : { cons: old_outcome.cons - 1 }
-
         const new_outcome = Object.assign({}, old_outcome, {opinions: opinions}, pro_or_con)
-
         const new_outcomes_array = [...this.state.decision.outcomes.slice(0, outcomeIndex),new_outcome, ...this.state.decision.outcomes.slice(outcomeIndex+1)]
-
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
-
         this.setState({decision:newDecision})
       })
   }
