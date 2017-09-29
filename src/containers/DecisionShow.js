@@ -79,7 +79,7 @@ export default class DecisionShow extends Component {
         const outcomeIndex = this.state.decision.outcomes.findIndex((e) => e.id == outcomeId )
         const old_outcome = Object.assign({}, this.state.decision.outcomes[outcomeIndex])
         const pro_or_con = newOpinion.value ? { pros: old_outcome.pros + 1 } : { cons: old_outcome.cons + 1 }
-        const new_outcome = Object.assign({}, old_outcome, { opinions: [...old_outcome.opinions, newOpinion]}, pro_or_con)
+        const new_outcome = Object.assign({}, old_outcome, { opinions: [newOpinion, ...old_outcome.opinions]}, pro_or_con)
         const new_outcomes_array = [...this.state.decision.outcomes.slice(0, outcomeIndex),new_outcome, ...this.state.decision.outcomes.slice(outcomeIndex+1)]
         const newDecision = Object.assign({}, this.state.decision, { outcomes: new_outcomes_array})
         this.setState({
